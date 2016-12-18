@@ -22,5 +22,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/leocai/workspace/SpaceSync/libs/j3d-1_5_2-linux-amd64/lib/amd64"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="libs/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

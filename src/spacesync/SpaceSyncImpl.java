@@ -81,7 +81,7 @@ public class SpaceSyncImpl implements SpaceSync {
 	private double checkResult(SensorData sensorData, double[] gravity_vector, double E_hori_fi_x, double E_hori_fi_y,
 			double E_hori_fi_z) {
 		double[] initMag = sensorData.getMagnet()[0];
-		double[] init_hori_mag = MatrixUtils.T(SensorData.getRotationMatrixG2BByMag(gravity_vector, initMag))[1];
+		double[] init_hori_mag = MatrixUtils.T(CoordinateTracker.getRotationMatrixG2BByMag(gravity_vector, initMag))[1];
 		double angle = getSyncDirection(new double[] { E_hori_fi_x, E_hori_fi_y, E_hori_fi_z }, init_hori_mag);
 		return angle;
 	}

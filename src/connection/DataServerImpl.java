@@ -1,5 +1,7 @@
 package connection;
 
+
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,10 +14,13 @@ import java.net.Socket;
 import java.net.SocketImpl;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
 
 import utils.DataUtils;
 
-public class DataServerImpl implements DataServer {
+
+public class DataServerImpl extends Observable implements DataServer {
 
 	private static final int PORT = 10007;
 	private ServerSocket serverSocket;
@@ -23,7 +28,8 @@ public class DataServerImpl implements DataServer {
 	private OutputStream out;
 	private InputStream in;
 	private boolean stop;
-	private int[] selectedIds = new int[] { 0, 1, 2 };
+	private int[] selectedIds = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20 };
+	private int[] id_acc = new int[]{3,4,5};
 
 	@Override
 	public void startServer() throws IOException {
@@ -53,6 +59,11 @@ public class DataServerImpl implements DataServer {
 	}
 
 	@Override
+	public void stopReceiveData() {
+		stop = true;
+	}
+
+	@Override
 	public void receivedData() throws IOException {
 		stop = false;
 		while (!stop) {
@@ -60,19 +71,20 @@ public class DataServerImpl implements DataServer {
 			String newLine = bufferedReader.readLine();
 			if (newLine == null)
 				continue;
-			double data[] = DataUtils.parseData(newLine, selectedIds);
-			dealWithSample(data);
+			double data[];
+			try {
+				data = DataUtils.parseData(newLine, selectedIds);
+				setChanged();
+				notifyObservers(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
-	public void dealWithSample(double[] data) {
-		System.out.println(Arrays.toString(data));
-	}
-
-	@Override
-	public void stopReceiveData() {
-		stop = true;
+	public void addDataListener(Observer dataListener) {
+		addObserver(dataListener);
 	}
 
 }

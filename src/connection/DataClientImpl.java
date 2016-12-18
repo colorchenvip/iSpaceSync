@@ -16,13 +16,14 @@ public class DataClientImpl implements DataClient {
 	private OutputStream out;
 	private InputStream in;
 	private Socket socket;
+	private PrintWriter bufferedWriter;
 
 	@Override
 	public void connect(String address, int port) throws UnknownHostException, IOException {
 		socket = new Socket(address, port);
 		out = socket.getOutputStream();
 		in = socket.getInputStream();
-
+		bufferedWriter = new PrintWriter(new OutputStreamWriter(out));
 	}
 
 	@Override
@@ -34,7 +35,6 @@ public class DataClientImpl implements DataClient {
 
 	@Override
 	public void sendSample(String data) throws IOException {
-		PrintWriter bufferedWriter = new PrintWriter(new OutputStreamWriter(out));
 		bufferedWriter.println(data);
 		bufferedWriter.flush();
 	}

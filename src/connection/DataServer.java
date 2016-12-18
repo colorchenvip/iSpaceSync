@@ -1,6 +1,8 @@
 package connection;
 
+
 import java.io.IOException;
+import java.util.Observer;
 
 public interface DataServer {
 	
@@ -8,7 +10,7 @@ public interface DataServer {
 	void closeServer() throws IOException;
 	String getAddress();
 	void receivedData() throws IOException;
-	void dealWithSample(double[] data);
 	void stopReceiveData();
+	void addDataListener(Observer dataListener);
 
 }

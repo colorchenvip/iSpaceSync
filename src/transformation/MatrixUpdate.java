@@ -1,5 +1,7 @@
 package transformation;
 
+import java.util.Arrays;
+
 import utils.MatrixUtils;
 
 /**
@@ -7,7 +9,7 @@ import utils.MatrixUtils;
  */
 public class MatrixUpdate {
 	private double[][] cuMatrix = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
-	private double[][] I = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
+	public static double[][] I = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
 
 	public double[][] updateMatrix(double[][] matUpdate) {
 		cuMatrix = MatrixUtils.multiply(cuMatrix, matUpdate);
@@ -15,6 +17,9 @@ public class MatrixUpdate {
 	}
 
 	public double[][] updateMatrixByGYR(double[] gyr, double dt) {
+//		System.out.println(Arrays.toString(gyr));
+//		System.out.println(dt);
+
 //		for (int i = 0; i < 3; i++) {
 //			gyr[i] = -gyr[i];
 //		}
@@ -35,8 +40,8 @@ public class MatrixUpdate {
 		return cuMatrix;
 	}
 
-	public void setCuMatrix(double[][] cuMatrix) {
-		this.cuMatrix = cuMatrix;
+	public void setCuMatrixB2G(double[][] cuMatrixB2G) {
+		this.cuMatrix = cuMatrixB2G;
 	}
 
 	public void resetCuMatrix() {
