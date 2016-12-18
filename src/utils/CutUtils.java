@@ -2,6 +2,11 @@ package utils;
 
 import spacesync.SensorData;
 
+/**
+ * 切割工具类
+ * @author leocai
+ *
+ */
 public class CutUtils {
 
 	public static SensorData cutData(SensorData sensorData) {

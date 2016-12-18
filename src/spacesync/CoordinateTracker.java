@@ -1,12 +1,12 @@
 package spacesync;
 
 import transformation.DealWithRotationMatrix_B2G;
-import transformation.MatrixUpdate;
+import transformation.GyroMatrixTracker;
 import utils.MatrixUtils;
 
 public class CoordinateTracker {
 
-	MatrixUpdate matrixUpdate = new MatrixUpdate();
+	GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
 
 	public double[][] trackByGyro(final double[][] accs, double[][] gyrs, double[] dt, double[][] initMatrix_g2b) {
 		// double[][] cuMatrix_b2g = MatrixUtils.T(initMatrix_g2b);
@@ -34,7 +34,7 @@ public class CoordinateTracker {
 		double[][] cuMatrix_b2g = MatrixUtils.T(initMatrix_g2b);
 		matrixUpdate.setCuMatrixB2G(cuMatrix_b2g);
 		for (int i = 0; i < gyrs.length; i++) {
-			cuMatrix_b2g = matrixUpdate.updateMatrixByGYR(gyrs[i], dt[i]);
+			cuMatrix_b2g = matrixUpdate.trackByGYR(gyrs[i], dt[i]);
 			dealWithRotationMatrix_B2G.deal(i, cuMatrix_b2g);
 		}
 	}

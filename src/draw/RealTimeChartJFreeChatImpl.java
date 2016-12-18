@@ -3,7 +3,11 @@ package draw;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
@@ -15,7 +19,7 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int MAX_X = 100;
+	protected static final int MAX_X = 100;
 
 	public RealTimeChartJFreeChatImpl(String title, String[] columnNames) {
 		super(title);
@@ -26,11 +30,11 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 	}
 
 	private DefaultCategoryDataset dataset;
-	private int cuKey;
+	protected int cuKey;
 
 	@Override
 	public void init(String title, String[] columnNames) {
-		JFreeChart lineChart = ChartFactory.createLineChart(title, "Years", "Number of Schools", createDataset(),
+		 JFreeChart lineChart = ChartFactory.createLineChart(title, "Years", "Number of Schools", createDataset(),
 				PlotOrientation.VERTICAL, true, true, false);
 		ChartPanel chartPanel = new ChartPanel(lineChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
@@ -54,6 +58,12 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 			}
 		}
 		// dataset.removeValue(rowKey, columnKey);
+	}
+
+	@Override
+	public void setRange(int min, int max) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

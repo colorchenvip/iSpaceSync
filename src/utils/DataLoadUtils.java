@@ -11,6 +11,11 @@ import java.util.ArrayList;
 
 import spacesync.SensorData;
 
+/**
+ * 读取csv文件工具类
+ * @author leocai
+ *
+ */
 public class DataLoadUtils {
 
 	public static SensorData loadSensorData(String fileName) throws IOException {

@@ -1,4 +1,4 @@
-package connection;
+package connection.datalistteners;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -8,12 +8,12 @@ import draw.PhoneDisplayerImpl;
 import spacesync.CoordinateTracker;
 import spacesync.SensorData;
 import spacesync.SingleSensorData;
-import transformation.MatrixUpdate;
+import transformation.GyroMatrixTracker;
 import utils.MatrixUtils;
 
 public class ObserverMagTrack implements Observer {
 	
-	MatrixUpdate matrixUpdate = new MatrixUpdate();
+	GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
 	PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
 	
 	public ObserverMagTrack(){

@@ -5,10 +5,12 @@ import java.util.Observer;
 
 import connection.DataServer;
 import connection.DataServerImpl;
-import connection.ObserverChart;
-import connection.ObserverGyrTrack;
-import connection.ObserverMagTrack;
-import transformation.MatrixUpdate;
+import connection.datalistteners.ObserverChart;
+import connection.datalistteners.ObserverComplementTrack;
+import connection.datalistteners.ObserverGyrGaccTracker;
+import connection.datalistteners.ObserverGyrTrack;
+import connection.datalistteners.ObserverMagTrack;
+import transformation.GyroMatrixTracker;
 
 public class TestDataServer {
 
@@ -18,10 +20,12 @@ public class TestDataServer {
 		
 		Observer chartListener = new ObserverChart();
 		Observer magListener = new ObserverMagTrack();
-		Observer gyrListener = new ObserverGyrTrack(MatrixUpdate.I);
+		Observer gyrListener = new ObserverGyrTrack(GyroMatrixTracker.I);
 		dataServer.addDataListener(chartListener);
 		dataServer.addDataListener(magListener);
 		dataServer.addDataListener(gyrListener);
+		dataServer.addDataListener(new ObserverComplementTrack());
+		dataServer.addDataListener(new ObserverGyrGaccTracker());
 		dataServer.receivedData();
 		
 	}

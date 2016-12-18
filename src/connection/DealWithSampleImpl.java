@@ -8,7 +8,7 @@ import draw.RealTimeChart;
 import draw.RealTimeChartJFreeChatImpl;
 import spacesync.SensorData;
 import spacesync.SingleSensorData;
-import transformation.MatrixUpdate;
+import transformation.GyroMatrixTracker;
 import utils.DataUtils;
 import utils.MatrixUtils;
 
@@ -16,7 +16,7 @@ import utils.MatrixUtils;
 public class DealWithSampleImpl implements DealWithSample {
 
 	RealTimeChart realTimeChart = new RealTimeChartJFreeChatImpl("11", new String[] { "" });
-	MatrixUpdate matrixUpdate = new MatrixUpdate();
+	GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
 	PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
 
 	@Override
@@ -29,7 +29,7 @@ public class DealWithSampleImpl implements DealWithSample {
 	public void dealWithSample(double[] data) {
 		// System.out.println(Arrays.toString(data));
 		SingleSensorData singleSensorData = new SingleSensorData(data);
-		double[][] cuMatrix_b2g = matrixUpdate.updateMatrixByGYR(singleSensorData.getGYR(), singleSensorData.getDT());
+		double[][] cuMatrix_b2g = matrixUpdate.trackByGYR(singleSensorData.getGYR(), singleSensorData.getDT());
 		phoneDisplayer.setRotationMatrix_b2g(cuMatrix_b2g);
 		realTimeChart.addData(singleSensorData.getGYR());
 	}

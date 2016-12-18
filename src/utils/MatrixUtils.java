@@ -7,10 +7,7 @@ import java.util.Arrays;
  */
 public class MatrixUtils {
 
-	public static final double[][] MATRIX_E = new double[][] {
-		{ 1, 0, 0 },
-		{ 0, 1, 0 },
-		{ 0, 0, 1 } };
+	public static final double[][] MATRIX_E = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
 
 	/**
 	 * 矩阵转置
@@ -140,6 +137,18 @@ public class MatrixUtils {
 		return results;
 	}
 
+	public static double[][] minus(double[][] mat1, double[][] mat2) {
+		int row = mat1.length;
+		int column = mat1[0].length;
+		double[][] results = new double[row][column];
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				results[i][j] = mat1[i][j] - mat2[i][j];
+			}
+		}
+		return results;
+	}
+
 	// TODO order
 
 	/**
@@ -181,4 +190,23 @@ public class MatrixUtils {
 		}
 		return newData;
 	}
+
+	/**
+	 * 均方
+	 * @param mat
+	 * @return
+	 */
+	public static double squareMean(double[][] mat) {
+		int row = mat.length;
+		int column = mat[0].length;
+		double sum = 0;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				sum += Math.pow(mat[i][j], 2);
+			}
+		}
+		sum /= (row * column);
+		return sum;
+	}
+
 }

@@ -7,7 +7,7 @@ import draw.PhoneDisplayer;
 import draw.PhoneDisplayerImpl;
 import spacesync.CoordinateTracker;
 import spacesync.SensorData;
-import transformation.MatrixUpdate;
+import transformation.GyroMatrixTracker;
 import utils.DataLoadUtils;
 import utils.MatrixUtils;
 import utils.PlotUtils;
@@ -31,7 +31,7 @@ public class TestTrackGyro {
 	private static void testAssumedData() {
 		PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
 		phoneDisplayer.initView();
-		MatrixUpdate matrixUpdate = new MatrixUpdate();
+		GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
 //		for (int i = 0; i < 1000; i++) {
 //			double[] gyr = new double[] { 0, 0, 0.1 };
 //			double[][] cumatrix = matrixUpdate.updateMatrixByGYR(gyr, 0.1);
@@ -57,7 +57,7 @@ public class TestTrackGyro {
 //		
 		for (int i = 0; i < 1000; i++) {
 			double[] gyr = new double[] { 0.1, 0.1, 0.1 };
-			double[][] cumatrix = matrixUpdate.updateMatrixByGYR(gyr, 0.1);
+			double[][] cumatrix = matrixUpdate.trackByGYR(gyr, 0.1);
 			phoneDisplayer.setRotationMatrix_b2g(MatrixUtils.T(cumatrix));
 			try {
 				Thread.sleep(10);
