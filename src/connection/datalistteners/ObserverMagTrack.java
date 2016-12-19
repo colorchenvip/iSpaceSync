@@ -6,7 +6,7 @@ import java.util.Observer;
 import draw.PhoneDisplayer;
 import draw.PhoneDisplayerImpl;
 import spacesync.CoordinateTracker;
-import spacesync.SensorData;
+import spacesync.SensorDataList;
 import spacesync.SingleSensorData;
 import transformation.GyroMatrixTracker;
 import utils.MatrixUtils;

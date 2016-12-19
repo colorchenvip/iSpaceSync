@@ -11,6 +11,6 @@ public interface SpaceSync {
 	
 	SyncResult spaceSync(SensorDataSet sensorDataSet);
 	
-	double singleSync(SensorData sensorData);
+	double singleSync(SensorDataList sensorData);
 
 }

@@ -32,7 +32,6 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 	private DefaultCategoryDataset dataset;
 	protected int cuKey;
 
-	@Override
 	public void init(String title, String[] columnNames) {
 		 JFreeChart lineChart = ChartFactory.createLineChart(title, "Years", "Number of Schools", createDataset(),
 				PlotOrientation.VERTICAL, true, true, false);
@@ -62,6 +61,12 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 
 	@Override
 	public void setRange(int min, int max) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showStaticData(double[] ds) {
 		// TODO Auto-generated method stub
 		
 	}

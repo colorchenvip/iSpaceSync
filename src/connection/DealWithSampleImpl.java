@@ -6,7 +6,7 @@ import draw.PhoneDisplayer;
 import draw.PhoneDisplayerImpl;
 import draw.RealTimeChart;
 import draw.RealTimeChartJFreeChatImpl;
-import spacesync.SensorData;
+import spacesync.SensorDataList;
 import spacesync.SingleSensorData;
 import transformation.GyroMatrixTracker;
 import utils.DataUtils;

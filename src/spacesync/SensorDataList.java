@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import utils.MatrixUtils;
 
-public class SensorData {
+public class SensorDataList {
 
 	public static final int LINEAR_X = 0;
 	public static final int LINEAR_Y = 1;
@@ -25,7 +25,7 @@ public class SensorData {
 
 	private double[][] data;
 
-	public SensorData(double[][] totalDatas) {
+	public SensorDataList(double[][] totalDatas) {
 		this.data = totalDatas;
 	}
 

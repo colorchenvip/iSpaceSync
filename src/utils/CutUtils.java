@@ -1,6 +1,6 @@
 package utils;
 
-import spacesync.SensorData;
+import spacesync.SensorDataList;
 
 /**
  * 切割工具类
@@ -9,7 +9,7 @@ import spacesync.SensorData;
  */
 public class CutUtils {
 
-	public static SensorData cutData(SensorData sensorData) {
+	public static SensorDataList cutData(SensorDataList sensorData) {
 		double[] resultant_data = DataUtils.resultantData(sensorData.getLinearAccs());
 		int start = 0;
 		double threhold = 0.6;

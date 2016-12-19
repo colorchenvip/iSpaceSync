@@ -17,24 +17,24 @@ public class SingleSensorData {
 	}
 
 	public double[] getGYR() {
-		return new double[] { data[SensorData.GYR_X], data[SensorData.GYR_Y], data[SensorData.GYR_Z] };
+		return new double[] { data[SensorDataList.GYR_X], data[SensorDataList.GYR_Y], data[SensorDataList.GYR_Z] };
 	}
 
 	public double getDT() {
-		return data[SensorData.DT_INDEX];
+		return data[SensorDataList.DT_INDEX];
 	}
 
 	public double[] getAcc() {
-		return new double[] { data[SensorData.LINEAR_X], data[SensorData.LINEAR_Y],
-				data[SensorData.LINEAR_Z] };
+		return new double[] { data[SensorDataList.LINEAR_X], data[SensorDataList.LINEAR_Y],
+				data[SensorDataList.LINEAR_Z] };
 	}
 
 	public double[] getGrivity() {
-		return new double[] { data[SensorData.GRIVATY_X], data[SensorData.GRIVATY_Y], data[SensorData.GRIVATY_Z] };
+		return new double[] { data[SensorDataList.GRIVATY_X], data[SensorDataList.GRIVATY_Y], data[SensorDataList.GRIVATY_Z] };
 	}
 
 	public double[] getMag() {
-		return new double[] { data[SensorData.MAG_X], data[SensorData.MAG_Y], data[SensorData.MAG_Z] };
+		return new double[] { data[SensorDataList.MAG_X], data[SensorDataList.MAG_Y], data[SensorDataList.MAG_Z] };
 	}
 
 }

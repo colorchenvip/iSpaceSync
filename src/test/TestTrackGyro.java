@@ -6,7 +6,7 @@ import java.util.Arrays;
 import draw.PhoneDisplayer;
 import draw.PhoneDisplayerImpl;
 import spacesync.CoordinateTracker;
-import spacesync.SensorData;
+import spacesync.SensorDataList;
 import transformation.GyroMatrixTracker;
 import utils.DataLoadUtils;
 import utils.MatrixUtils;
@@ -70,7 +70,7 @@ public class TestTrackGyro {
 	}
 
 	private static void test3() throws IOException {
-		SensorData sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
+		SensorDataList sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
 		double[][] computed_gacc = sensorData.computeGlobalByMag();
 		CoordinateTracker coordinateTracker = new CoordinateTracker();
 		double[][] g_acc = coordinateTracker.trackByGyro(sensorData.getLinearAccs(), sensorData.getGyrs(),
@@ -78,7 +78,7 @@ public class TestTrackGyro {
 	}
 
 	private static void test2() throws IOException {
-		SensorData sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
+		SensorDataList sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
 		double[][] local_acc = sensorData.getLinearAccs();
 		CoordinateTracker coordinateTracker = new CoordinateTracker();
 		double[][] g_acc = coordinateTracker.trackByGyro(sensorData.getLinearAccs(), sensorData.getGyrs(),

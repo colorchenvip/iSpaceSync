@@ -14,15 +14,15 @@ public class SpaceSyncImpl implements SpaceSync {
 
 	@Override
 	public SyncResult spaceSync(SensorDataSet sensorDataSet) {
-		List<SensorData> sensorDataList = sensorDataSet.getSensorDataList();
-		for (SensorData sensorData : sensorDataList) {
+		List<SensorDataList> sensorDataList = sensorDataSet.getSensorDataList();
+		for (SensorDataList sensorData : sensorDataList) {
 
 		}
 		return null;
 	}
 
 	@Override
-	public double singleSync(SensorData sensorData) {
+	public double singleSync(SensorDataList sensorData) {
 		sensorData = CutUtils.cutData(sensorData);
 		sensorData = smoothData(sensorData);
 		double[][] accs = sensorData.getLinearAccs();
@@ -78,7 +78,7 @@ public class SpaceSyncImpl implements SpaceSync {
 		PlotUtils.plotCompareData(hori_global_acc, global_acc);
 	}
 
-	private double checkResult(SensorData sensorData, double[] gravity_vector, double E_hori_fi_x, double E_hori_fi_y,
+	private double checkResult(SensorDataList sensorData, double[] gravity_vector, double E_hori_fi_x, double E_hori_fi_y,
 			double E_hori_fi_z) {
 		double[] initMag = sensorData.getMagnet()[0];
 		double[] init_hori_mag = MatrixUtils.T(CoordinateTracker.getRotationMatrixG2BByMag(gravity_vector, initMag))[1];
@@ -94,7 +94,7 @@ public class SpaceSyncImpl implements SpaceSync {
 		return hroiData;
 	}
 
-	private SensorData smoothData(SensorData sensorData) {
+	private SensorDataList smoothData(SensorDataList sensorData) {
 		double[][] smoothed_data = DataUtils.smooth(sensorData.getData(), 5);
 //		PlotUtils.plotCompareData(sensorData.getLinearAccs(), new SensorData(smoothed_data).getLinearAccs());
 		sensorData.setData(smoothed_data);

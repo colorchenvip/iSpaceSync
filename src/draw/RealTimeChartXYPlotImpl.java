@@ -22,9 +22,12 @@ public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
 	private static final long serialVersionUID = 9127338033397910052L;
 	List<XYSeries> seriesList;
 	private JFreeChart lineChart;
+	private String[] columnNames;
 
 	public RealTimeChartXYPlotImpl(String title, String[] columnNames) {
 		super(title, columnNames);
+		this.columnNames = columnNames;
+		init(title, columnNames);
 	}
 
 	@Override
@@ -50,11 +53,11 @@ public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
 		for (String col : columnNames) {
 			XYSeries series1 = new XYSeries(col);
 			seriesList.add(series1);
-			//			Random rdm = new Random();
-//			series1.add(1,rdm.nextInt(10));
-//			series1.add(2,rdm.nextInt(10));
-//			series1.add(3,rdm.nextInt(10));
-//			series1.add(4,rdm.nextInt(10));
+			// Random rdm = new Random();
+			// series1.add(1,rdm.nextInt(10));
+			// series1.add(2,rdm.nextInt(10));
+			// series1.add(3,rdm.nextInt(10));
+			// series1.add(4,rdm.nextInt(10));
 			dataset.addSeries(series1);
 		}
 		return dataset;
@@ -80,7 +83,12 @@ public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setRange(min, max);
 	}
-	
-	
+
+	@Override
+	public void showStaticData(double[] data) {
+		for (double d : data) {
+			addData(new double[] { d });
+		}
+	}
 
 }

@@ -3,7 +3,7 @@ import java.util.List;
 
 public class SensorDataSet {
 
-	public List<SensorData> getSensorDataList() {
+	public List<SensorDataList> getSensorDataList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
