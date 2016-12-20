@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Observer;
 
 import connection.DataServer;
-import connection.DataServerImpl;
+import connection.DataServerSingleClientImpl;
 import connection.datalistteners.ObserverChart;
 import connection.datalistteners.ObserverComplementTrack;
 import connection.datalistteners.ObserverGyrGaccTracker;
@@ -15,7 +15,7 @@ import transformation.GyroMatrixTracker;
 public class TestDataServer {
 
 	public static void main(String[] args) throws IOException {
-		DataServer dataServer = new DataServerImpl();
+		DataServer dataServer = new DataServerSingleClientImpl();
 		dataServer.startServer();
 		
 		Observer chartListener = new ObserverChart();

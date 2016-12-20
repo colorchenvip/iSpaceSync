@@ -20,7 +20,7 @@ import java.util.Observer;
 import utils.DataUtils;
 
 
-public class DataServerImpl extends Observable implements DataServer {
+public class DataServerSingleClientImpl extends Observable implements DataServer {
 
 	private static final int PORT = 10007;
 	private ServerSocket serverSocket;

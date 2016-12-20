@@ -9,13 +9,31 @@ import spacesync.ConsistentExtraction;
 import spacesync.ConsistentExtractionImpl;
 import spacesync.SensorDataList;
 import utils.DataLoadUtils;
+import utils.MatrixUtils;
+import utils.PlotUtils;
 
 public class TestConsistentExtraction {
 	static ConsistentExtraction consistentExtraction = new ConsistentExtractionImpl();
 	static RealTimeChart chart = new RealTimeChartXYPlotImpl("Consistent Data", new String[] { "pc1" });
 
 	public static void main(String[] args) throws IOException {
-		SensorDataList sensorData = DataLoadUtils.loadSensorData("./datas/run_walk_native_gravity/top/walk1.csv");
+
+		double[][] m1 = new double[][] { { 0, 0, 1 }, { 1, 1, 1 }, { 2, 2, 2 } };
+		double[][] m2 = new double[][] { { 3, 2, 1 }, { 7, 5, 1 }, { 2, 0, 9 } };
+		double[][] rs = MatrixUtils.cbind(m1, m2);
+		MatrixUtils.printMatrix(rs);
+
+		SensorDataList top = DataLoadUtils.loadSensorData("./datas/run_walk_native_gravity/top/walk1.csv");
+		SensorDataList left = DataLoadUtils.loadSensorData("./datas/run_walk_native_gravity/leftpants/walk1.csv");
+		SensorDataList right = DataLoadUtils.loadSensorData("./datas/run_walk_native_gravity/rightpants/walk1.csv");
+		double[][] bindedData = MatrixUtils.cbind(top.getLinearAccs(), left.getLinearAccs());
+		bindedData = MatrixUtils.cbind(bindedData, left.getLinearAccs());
+		for (double[] d : bindedData) {
+			consistentExtraction.addData(d);
+		}
+		double[] consistData = consistentExtraction.extractConsistentData();
+		PlotUtils.plotData(MatrixUtils.getColumn(top.getLinearAccs(), 2));
+		PlotUtils.plotData(consistData);
 	}
 
 	private static void test1() {

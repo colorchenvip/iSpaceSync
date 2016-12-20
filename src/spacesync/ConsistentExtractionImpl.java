@@ -11,7 +11,19 @@ import utils.MyDataBuffer;
 
 public class ConsistentExtractionImpl implements ConsistentExtraction {
 
-	MyDataBuffer buffer = new MyDataBuffer(10);
+	MyDataBuffer buffer;
+
+	public ConsistentExtractionImpl(MyDataBuffer buffer) {
+		setBuffer(buffer);
+	}
+
+	public MyDataBuffer getBuffer() {
+		return buffer;
+	}
+
+	public void setBuffer(MyDataBuffer buffer) {
+		this.buffer = buffer;
+	}
 
 	@Override
 	public void init() {
@@ -29,7 +41,7 @@ public class ConsistentExtractionImpl implements ConsistentExtraction {
 		Matrix trainingData = new Matrix(data);
 		PCA pca = new PCA(trainingData);
 		Matrix testData = new Matrix(data);
-		Matrix transformedData = pca.transform(testData, PCA.TransformationType.WHITENING);
+		Matrix transformedData = pca.transform(testData, PCA.TransformationType.ROTATION);
 		double[][] pca_rs = transformedData.getArray();
 		return MatrixUtils.getColumn(pca_rs, 0);
 	}

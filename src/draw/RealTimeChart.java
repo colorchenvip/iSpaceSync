@@ -8,4 +8,6 @@ public interface RealTimeChart {
 
 	void showStaticData(double[] consistentData);
 
+	void clearData();
+
 }

@@ -71,4 +71,10 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 		
 	}
 
+	@Override
+	public void clearData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

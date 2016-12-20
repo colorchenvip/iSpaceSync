@@ -193,6 +193,7 @@ public class MatrixUtils {
 
 	/**
 	 * 均方
+	 * 
 	 * @param mat
 	 * @return
 	 */
@@ -207,6 +208,23 @@ public class MatrixUtils {
 		}
 		sum /= (row * column);
 		return sum;
+	}
+
+	public static double[][] cbind(double[][] m1, double[][] m2) {
+		int row = m1.length > m2.length ? m2.length : m1.length;
+		int column = m1[0].length + m2[0].length;
+		double[][] rs = new double[m1.length][column];
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < m1[0].length; j++) {
+				rs[i][j] = m1[i][j];
+			}
+		}
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < m2[0].length; j++) {
+				rs[i][j + m1[0].length] = m2[i][j];
+			}
+		}
+		return rs;
 	}
 
 }
