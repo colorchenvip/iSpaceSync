@@ -18,11 +18,11 @@ import utils.PlotUtils;
 public class TestSpaceSync {
 
 	public static void main(String[] args) throws IOException {
-		SpaceSync spaceSync = new SpaceSyncImpl();
+		SpaceSync spaceSync = new SpaceSyncImpl(3);
 		SensorDataList sensorData;
 		sensorData = DataLoadUtils.loadSensorData("datas/run_walk_native_gravity/top/walk" + 1 + ".csv");
-//		double rs = spaceSync.singleSync(sensorData);
-//		System.out.println(rs);
+		// double rs = spaceSync.singleSync(sensorData);
+		// System.out.println(rs);
 		for (int i = 1; i < 5; i++) {
 			sensorData = DataLoadUtils.loadSensorData("datas/run_walk_native_gravity/top/walk" + i + ".csv");
 			double rs = spaceSync.singleSync(sensorData);

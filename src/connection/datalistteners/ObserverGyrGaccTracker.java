@@ -26,7 +26,7 @@ public class ObserverGyrGaccTracker implements Observer {
 		if (first) {
 			double[][] rtm_g2b = CoordinateTracker.getRotationMatrixG2BByMag(sensorData.getGrivity(),
 					sensorData.getMag());
-			double[] global_x = MatrixUtils.getColumn(rtm_g2b, 1);
+			double[] global_x = MatrixUtils.selectColumn(rtm_g2b, 1);
 			gyrGaccMatrixTracker.setInitXAxis(global_x);
 			first = false;
 		}

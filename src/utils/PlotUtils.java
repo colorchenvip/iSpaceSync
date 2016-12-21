@@ -11,7 +11,7 @@ public class PlotUtils {
 	public static void plotData(double[][] multi_data) {
 		Plot2DPanel plot = new Plot2DPanel();
 		for (int i = 0; i < multi_data[0].length; i++) {
-			plot.addLinePlot("acc:" + i, MatrixUtils.getColumn(multi_data, i));
+			plot.addLinePlot("acc:" + i, MatrixUtils.selectColumn(multi_data, i));
 		}
 		JFrame frame = new JFrame("a plot panel");
 		frame.setSize(1024, 768);
@@ -25,8 +25,8 @@ public class PlotUtils {
 			JFrame frame = new JFrame("compare" + i);
 			frame.setSize(1024, 768);
 			Plot2DPanel plot = new Plot2DPanel();
-			plot.addLinePlot("data1:" + i, MatrixUtils.getColumn(data1, i));
-			plot.addLinePlot("data2:" + i, MatrixUtils.getColumn(data2, i));
+			plot.addLinePlot("data1:" + i, MatrixUtils.selectColumn(data1, i));
+			plot.addLinePlot("data2:" + i, MatrixUtils.selectColumn(data2, i));
 			frame.add(plot);
 			frame.setVisible(true);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

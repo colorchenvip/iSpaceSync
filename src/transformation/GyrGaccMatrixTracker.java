@@ -15,7 +15,7 @@ public class GyrGaccMatrixTracker {
 	public double[][] track_b2g(double[] gyr, double[] grivity, double dt) {
 		if (first) {
 			double[][] rmt_g2b = CoordinateTracker.getRotationMatrixG2BByMag(grivity, global_x);
-			global_x = MatrixUtils.getColumn(rmt_g2b, 1);
+			global_x = MatrixUtils.selectColumn(rmt_g2b, 1);
 			first = false;
 		}
 		double w_grivity = VectorUtils.project(gyr, grivity);
@@ -24,7 +24,7 @@ public class GyrGaccMatrixTracker {
 				MatrixUtils.convertVectorToMatrix(global_x));
 		global_x = MatrixUtils.convertMatrixToVector(next_global_mat_x);
 		double[][] rmt_g2b = CoordinateTracker.getRotationMatrixG2BByMag(grivity, global_x);
-		global_x = MatrixUtils.getColumn(rmt_g2b, 1);
+		global_x = MatrixUtils.selectColumn(rmt_g2b, 1);
 		// System.out.println(Arrays.toString(global_x));
 		return MatrixUtils.T(rmt_g2b);
 	}

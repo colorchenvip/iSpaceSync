@@ -27,7 +27,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	private List<Observer> observerList = new ArrayList<>();
 
 	List<String> clients = new ArrayList<>();
-	SingleMultiClientData singleMultiClientData = new SingleMultiClientData(clients);
+	SingleMultiClientData singleMultiClientData;
 
 	@Override
 	public void startServer() throws IOException {
@@ -35,19 +35,28 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 		serverSocket.setReuseAddress(true);
 		System.out.println(getAddress() + ":" + PORT);
 		closed = false;
-		while (!closed) {
-			Socket sockect = serverSocket.accept();
-			OutputStream out = sockect.getOutputStream();
-			InputStream in = sockect.getInputStream();
-			String hostAddress = sockect.getInetAddress().getHostAddress();
-			DataReceiveThread clientThread = new DataReceiveThread(hostAddress, sockect, out, in);
-			threadsMap.put(hostAddress, clientThread);
-			clients.add(hostAddress);
-			singleMultiClientData = new SingleMultiClientData(clients);
-			System.out.println(hostAddress + " connected");
-			clientThread.addObserver(this);
-			new Thread(clientThread).start();
-		}
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (!closed) {
+					Socket sockect;
+					try {
+						sockect = serverSocket.accept();
+						OutputStream out = sockect.getOutputStream();
+						InputStream in = sockect.getInputStream();
+						String hostAddress = sockect.getInetAddress().getHostAddress();
+						DataReceiveThread clientThread = new DataReceiveThread(hostAddress, sockect, out, in);
+						threadsMap.put(hostAddress, clientThread);
+						clients.add(hostAddress);
+						clientThread.addObserver(DataServerMultiClient.this);
+						System.out.println(hostAddress + " connected");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 
 	}
 
@@ -70,13 +79,15 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 
 	@Override
 	public void receivedData() throws IOException {
-		// for (String key : threadsMap.keySet()) {
-		// new Thread(threadsMap.get(key)).start();
-		// }
+		singleMultiClientData = new SingleMultiClientData(clients);
+		for (String key : threadsMap.keySet()) {
+			new Thread(threadsMap.get(key)).start();
+		}
 	}
 
 	@Override
 	public void stopReceiveData() {
+		singleMultiClientData = new SingleMultiClientData(clients);
 		for (String key : threadsMap.keySet()) {
 			threadsMap.get(key).stop();
 		}
@@ -97,6 +108,10 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 			setChanged();
 			notifyObservers(multiData);
 		}
+	}
+
+	public int getClientsNum() {
+		return clients.size();
 	}
 
 }

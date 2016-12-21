@@ -13,4 +13,6 @@ public interface SpaceSync {
 	
 	double singleSync(SensorDataList sensorData);
 
+	SyncResult addDataAndSync(double[] data);
+
 }

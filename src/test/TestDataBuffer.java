@@ -8,7 +8,7 @@ import utils.MyDataBuffer;
 public class TestDataBuffer {
 
 	public static void main(String[] args) {
-		MyDataBuffer myDataBuffer = new MyDataBuffer(4);
+		MyDataBuffer myDataBuffer = new MyDataBuffer(4, 3);
 		myDataBuffer.add(new double[] { 0, 1, 2 });
 		myDataBuffer.add(new double[] { 2, 1, 2 });
 		myDataBuffer.add(new double[] { 3, 1, 2 });

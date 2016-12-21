@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by leocai on 15-9-29. 矩阵的一些实用函数
@@ -173,7 +174,7 @@ public class MatrixUtils {
 		return new double[] { matrix[0][0], matrix[1][0], matrix[2][0] };
 	}
 
-	public static double[][] getColumns(double[][] data, int[] indexes) {
+	public static double[][] selectColumns(double[][] data, int[] indexes) {
 		double[][] newData = new double[data.length][indexes.length];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < indexes.length; j++) {
@@ -183,7 +184,7 @@ public class MatrixUtils {
 		return newData;
 	}
 
-	public static double[] getColumn(double[][] data, int index) {
+	public static double[] selectColumn(double[][] data, int index) {
 		double[] newData = new double[data.length];
 		for (int i = 0; i < data.length; i++) {
 			newData[i] = data[i][index];
@@ -225,6 +226,22 @@ public class MatrixUtils {
 			}
 		}
 		return rs;
+	}
+
+	public static double[][] selectRows(double[][] data, List<Integer> selectedRows) {
+		double[][] selectedData = new double[selectedRows.size()][];
+		for (int i = 0; i < selectedRows.size(); i++) {
+			selectedData[i] = data[selectedRows.get(i)];
+		}
+		return selectedData;
+	}
+
+	public static double[] selectRows(double[] data, List<Integer> selectedRows) {
+		double[] selectedData = new double[selectedRows.size()];
+		for (int i = 0; i < selectedRows.size(); i++) {
+			selectedData[i] = data[selectedRows.get(i)];
+		}
+		return selectedData;
 	}
 
 }

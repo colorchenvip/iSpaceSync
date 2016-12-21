@@ -38,15 +38,15 @@ public class SensorDataList {
 	}
 
 	public double[][] getLinearAccs() {
-		return MatrixUtils.getColumns(data, new int[] { LINEAR_X, LINEAR_Y, LINEAR_Z });
+		return MatrixUtils.selectColumns(data, new int[] { LINEAR_X, LINEAR_Y, LINEAR_Z });
 	}
 
 	public double[][] getGyrs() {
-		return MatrixUtils.getColumns(data, new int[] { GYR_X, GYR_Y, GYR_Z });
+		return MatrixUtils.selectColumns(data, new int[] { GYR_X, GYR_Y, GYR_Z });
 	}
 
 	public double[] getDT() {
-		return MatrixUtils.getColumn(data, DT_INDEX);
+		return MatrixUtils.selectColumn(data, DT_INDEX);
 	}
 
 	public double[][] getInitMatrix() {
@@ -54,7 +54,7 @@ public class SensorDataList {
 	}
 
 	public double[][] getGravityAccs() {
-		return MatrixUtils.getColumns(data, new int[] { GRIVATY_X, GRIVATY_Y, GRIVATY_Z });
+		return MatrixUtils.selectColumns(data, new int[] { GRIVATY_X, GRIVATY_Y, GRIVATY_Z });
 	}
 
 	@Override
@@ -63,11 +63,11 @@ public class SensorDataList {
 	}
 
 	public double[][] getMagnet() {
-		return MatrixUtils.getColumns(data, new int[] { MAG_X, MAG_Y, MAG_Z });
+		return MatrixUtils.selectColumns(data, new int[] { MAG_X, MAG_Y, MAG_Z });
 	}
 
 	public double[][] getGlobalMagAcc() {
-		return MatrixUtils.getColumns(data, new int[] { GLOBAL_MAG_ACC_X, GLOBAL_MAG_ACC_Y, GLOBAL_MAG_ACC_Z });
+		return MatrixUtils.selectColumns(data, new int[] { GLOBAL_MAG_ACC_X, GLOBAL_MAG_ACC_Y, GLOBAL_MAG_ACC_Z });
 	}
 
 	public double[][] getInitGlobalMatrix_G2B() {
