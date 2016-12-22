@@ -5,6 +5,7 @@ import java.util.List;
 
 import draw.RealTimeChart;
 import draw.RealTimeChartXYPlotImpl;
+import transformation.GyrGaccMatrixTracker;
 import utils.Constants;
 import utils.CutUtils;
 import utils.DataUtils;
@@ -24,7 +25,7 @@ public class SpaceSyncImpl implements SpaceSync {
 	}
 
 	@Override
-	public SyncResult spaceSync(SensorDataSet sensorDataSet) {
+	public DirectionEstimateResults spaceSync(SensorDataSet sensorDataSet) {
 		List<SensorDataList> sensorDataList = sensorDataSet.getSensorDataList();
 		for (SensorDataList sensorData : sensorDataList) {
 
@@ -141,19 +142,73 @@ public class SpaceSyncImpl implements SpaceSync {
 	ConsistentExtraction consistentExtraction = new ConsistentExtractionImpl();
 
 	@Override
-	public SyncResult addDataAndSync(double[] data) {
-		buffer.add(data);
+	public DirectionEstimateResults directionEstimatie(MyDataBuffer buffer) {
 		double[][] multiClientData = buffer.get();
 		double[][] lacc_multi_law = buffer.getLacc();
-		double[][] tracked_lacc = trackMulti(lacc_multi_law);
-		double[][] tracked_hori_lacc = buffer.getLacc();
+		double[][] gravity_multi = buffer.getGravity();
+		double[][] dt_multi = buffer.getDT();
+		double[][] gyr_multi = buffer.getGYR();
+		double[][] init_x_global_axis_multi = new double[][] { { 0, 1, 0 }, { 0, 1, 0 }, { 0, 1, 0 } };
+		double[][] tracked_lacc = trackMulti(lacc_multi_law, gyr_multi, dt_multi, gravity_multi,
+				init_x_global_axis_multi);
+		double[][] tracked_hori_lacc = projectMulti(tracked_lacc);
 		double[] Fc = consistentExtraction.extractConsistentData(tracked_hori_lacc);
 		List<Integer> selectedRows = selectIndexesByFc(multiClientData, Fc);
 		double[][] selected_multi_data = MatrixUtils.selectRows(multiClientData, selectedRows);
 		double[] selected_Fc = MatrixUtils.selectRows(Fc, selectedRows);
+		// init_x_global_axis_multi = directionEstimate(selected_multi_data,
+		// selected_Fc);
 		plot(selected_multi_data);
 		plot(selected_Fc);
-		return sync(selected_multi_data, selected_Fc);
+		return directionEstimate(selected_multi_data, selected_Fc);
+	}
+
+	private DirectionEstimateResults directionEstimate(double[][] selected_multi_data, double[] selected_Fc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private double[][] projectMulti(double[][] tracked_lacc) {
+		for (double[] t : tracked_lacc) {
+			t[2] = 0;
+		}
+		return (tracked_lacc);
+	}
+
+	GyrGaccMatrixTracker matrixTracker = new GyrGaccMatrixTracker();
+
+	// TODO tobe tested
+	/**
+	 * 
+	 * @param lacc_multi_law
+	 *            多个设备数据在一个矩阵中，依次按列排列
+	 * @param gyr_multi_law
+	 * @param dt_multi
+	 * @param gravity_multi
+	 * @param init_x_axis_multi_client
+	 *            设备之间按行排列
+	 * @return
+	 */
+	private double[][] trackMulti(double[][] lacc_multi_law, double[][] gyr_multi_law, double[][] dt_multi,
+			double[][] gravity_multi, double[][] init_x_axis_multi_client) {
+		double[][] multi_client_tracked_data = null;
+		for (int i = 0; i < clientsNum; i++) {
+			double[][] accs = MatrixUtils.selectColumns(lacc_multi_law,
+					DataUtils.getClientTargetIndexes(lacc_multi_law[0].length, new int[] { 0, 1, 2 }, i, clientsNum));
+			double[][] gyrs = MatrixUtils.selectColumns(lacc_multi_law,
+					DataUtils.getClientTargetIndexes(gyr_multi_law[0].length, new int[] { 0, 1, 2 }, i, clientsNum));
+			double[][] grivitys = MatrixUtils.selectColumns(gravity_multi,
+					DataUtils.getClientTargetIndexes(gravity_multi[0].length, new int[] { 0, 1, 2 }, i, clientsNum));
+			double[] dt = MatrixUtils.selectColumn(lacc_multi_law, i);
+			double[] init_x_axis = init_x_axis_multi_client[i];
+			double[][] clinetTrackedData = matrixTracker.trackGlobalAcc(accs, gyrs, grivitys, dt, init_x_axis);
+			if (multi_client_tracked_data == null) {
+				multi_client_tracked_data = clinetTrackedData;
+			} else {
+				multi_client_tracked_data = MatrixUtils.cbind(multi_client_tracked_data, clinetTrackedData);
+			}
+		}
+		return multi_client_tracked_data;
 	}
 
 	RealTimeChart chart_fc = new RealTimeChartXYPlotImpl("Consistent Data", new String[] { "pc1" });
@@ -182,8 +237,8 @@ public class SpaceSyncImpl implements SpaceSync {
 		return selectedRow;
 	}
 
-	private SyncResult sync(double[][] selected_multi_data, double[] selected_Fc) {
-		SyncResult syncResult = new SyncResult();
+	private DirectionEstimateResults sync(double[][] selected_multi_data, double[] selected_Fc) {
+		DirectionEstimateResults syncResult = new DirectionEstimateResults();
 		for (int i = 0; i < 3; i++) {
 			double[] fi = MatrixUtils.selectColumn(selected_multi_data, i);
 			double e_fi = mean(fi);
@@ -191,6 +246,20 @@ public class SpaceSyncImpl implements SpaceSync {
 			syncResult.add(i, e_fi, e_fc);
 		}
 		return syncResult;
+	}
+
+	@Override
+	public TrackingResults oreintationTracking(TrackingCallBack trackingCallBack, MyDataBuffer buffer,
+			DirectionEstimateResults directionEstimateResults) {
+		double[][] multiClientData = buffer.get();
+		double[][] lacc_multi_law = buffer.getLacc();
+		double[][] gravity_multi = buffer.getGravity();
+		double[][] dt_multi = buffer.getDT();
+		double[][] gyr_multi = buffer.getGYR();
+		double[][] init_x_global_axis_multi = directionEstimateResults.getInitXGlobalMulti();
+		double[][] tracked_lacc = trackMulti(lacc_multi_law, gyr_multi, dt_multi, gravity_multi,
+				init_x_global_axis_multi);
+		return tracked_lacc;
 	}
 
 }

@@ -39,8 +39,22 @@ public class MyDataBuffer {
 
 	public double[][] getLacc() {
 		double[][] data = get();
-		int[] ids = new int[] { SensorDataList.LINEAR_X, SensorDataList.LINEAR_Y, SensorDataList.LINEAR_Z };
-		return selectedColumns(data, ids);
+		return selectedColumns(data, SensorDataList.LINEAR_ACC_INDEXES);
+	}
+
+	public double[][] getGravity() {
+		double[][] data = get();
+		return selectedColumns(data, SensorDataList.GRIVITY_INDEXES);
+	}
+
+	public double[][] getDT() {
+		double[][] data = get();
+		return selectedColumns(data, SensorDataList.DT_INDEXES);
+	}
+
+	public double[][] getGYR() {
+		double[][] data = get();
+		return selectedColumns(data, SensorDataList.GYR_INDEXES);
 	}
 
 	private double[][] selectedColumns(double[][] data, int[] ids) {
@@ -60,5 +74,6 @@ public class MyDataBuffer {
 	public void setClientsNum(int clientsNum) {
 		this.clientsNum = clientsNum;
 	}
+
 
 }

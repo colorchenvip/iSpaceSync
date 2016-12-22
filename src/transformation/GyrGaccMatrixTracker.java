@@ -33,4 +33,10 @@ public class GyrGaccMatrixTracker {
 		this.global_x = global_x;
 	}
 
+	public double[][] trackGlobalAcc(double[][] accs, double[][] gyrs, double[][] grivitys, double[] dt,
+			double[] init_x_axis) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

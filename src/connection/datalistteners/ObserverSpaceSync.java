@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import spacesync.SpaceSync;
 import spacesync.SpaceSyncImpl;
-import spacesync.SyncResult;
+import spacesync.DirectionEstimateResults;
 
 public class ObserverSpaceSync implements Observer {
 
@@ -18,7 +18,7 @@ public class ObserverSpaceSync implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		double[] data = (double[]) arg;
-		SyncResult syncResult = spacesync.addDataAndSync(data);
+		DirectionEstimateResults syncResult = spacesync.directionEstimatie(data);
 		System.out.println(syncResult.getAngle());
 	}
 

@@ -2,7 +2,7 @@ package spacesync;
 
 import java.util.Arrays;
 
-public class SyncResult {
+public class DirectionEstimateResults {
 	double[] e_fi = new double[3];
 	double[] e_fc = new double[3];
 
@@ -34,6 +34,11 @@ public class SyncResult {
 
 	public double getAngle() {
 		return Math.atan2(e_fi[0], e_fi[1]) / Math.PI * 180;
+	}
+
+	public double[][] getInitXGlobalMulti() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

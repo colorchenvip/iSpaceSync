@@ -38,4 +38,21 @@ public class DataUtils {
 		return singleData;
 	}
 
+	/**
+	 * 抽取某个客户端的特定传感器的索引
+	 * 
+	 * @param length
+	 * @param ids
+	 * @param clientIndex
+	 * @param clientsNum
+	 * @return
+	 */
+	public static int[] getClientTargetIndexes(int length, int[] ids, int clientIndex, int clientsNum) {
+		int dataLen = length / clientsNum;
+		for (int i = 0; i < ids.length; i++) {
+			ids[i] += dataLen * clientIndex;
+		}
+		return ids;
+	}
+
 }

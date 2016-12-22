@@ -22,6 +22,10 @@ public class SensorDataList {
 	public static final int GLOBAL_MAG_ACC_Y = 13;
 	public static final int GLOBAL_MAG_ACC_Z = 14;
 	public static final int DT_INDEX = 15;
+	public static final int[] GRIVITY_INDEXES = new int[] { GRIVATY_X, GRIVATY_Y, GRIVATY_Z };
+	public static final int[] LINEAR_ACC_INDEXES = new int[] { LINEAR_X, LINEAR_Y, LINEAR_Z };
+	public static final int[] DT_INDEXES = new int[] { DT_INDEX };
+	public static final int[] GYR_INDEXES = new int[]{GYR_X, GYR_Y, GYR_Z};
 
 	private double[][] data;
 
@@ -75,7 +79,6 @@ public class SensorDataList {
 		double[] mag_acc = getGlobalMagAcc()[0];
 		return CoordinateTracker.getRotationMatrixG2BByMag(gravity_acc, mag_acc);
 	}
-
 
 	public double[][] computeGlobalByMag() {
 		double[][] gacc = getGravityAccs();
