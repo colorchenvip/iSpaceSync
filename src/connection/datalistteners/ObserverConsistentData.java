@@ -33,6 +33,7 @@ public class ObserverConsistentData implements Observer {
 		buffer.add(data);
 		double[] consistentData = consistentExtraction.extractConsistentData(buffer.getLacc());
 		chart.showStaticData(consistentData);
+		
 	}
 
 }

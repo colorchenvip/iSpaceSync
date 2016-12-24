@@ -93,6 +93,14 @@ public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
 	}
 
 	@Override
+	public void showStaticData(double[][] data) {
+		clearData();
+		for (double[] d : data) {
+			addData(d);
+		}
+	}
+
+	@Override
 	public void clearData() {
 		cuKey = 0;
 		for (XYSeries series : seriesList) {

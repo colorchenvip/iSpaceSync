@@ -1,44 +1,33 @@
 package spacesync;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DirectionEstimateResults {
-	double[] e_fi = new double[3];
-	double[] e_fc = new double[3];
+	private List<double[]> clientsRs;
 
-	public double[] getE_fi() {
-		return e_fi;
+	public List<double[]> getClientsRs() {
+		return clientsRs;
 	}
 
-	public void setE_fi(double[] e_fi) {
-		this.e_fi = e_fi;
+	public void setClientsRs(List<double[]> clientsRs) {
+		this.clientsRs = clientsRs;
 	}
 
-	public double[] getE_fc() {
-		return e_fc;
+	public DirectionEstimateResults(int clientsNum) {
+		clientsRs = new ArrayList<>(clientsNum);
 	}
 
-	public void setE_fc(double[] e_fc) {
-		this.e_fc = e_fc;
+	public void add(double[] syncRs) {
+		clientsRs.add(syncRs);
 	}
 
-	public void add(int i, double e_fi, double e_fc) {
-		this.e_fi[i] = e_fi;
-		this.e_fc[i] = e_fc;
-	}
+	public void printAngle() {
+		for (double[] rs : clientsRs) {
+			System.out.println(Math.atan2(rs[0], rs[1]) / Math.PI * 180);
+		}
 
-	@Override
-	public String toString() {
-		return "SyncResult [e_fi=" + Arrays.toString(e_fi) + ", e_fc=" + Arrays.toString(e_fc) + "]";
-	}
-
-	public double getAngle() {
-		return Math.atan2(e_fi[0], e_fi[1]) / Math.PI * 180;
-	}
-
-	public double[][] getInitXGlobalMulti() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -77,4 +77,10 @@ public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements Real
 		
 	}
 
+	@Override
+	public void showStaticData(double[][] selectColumns) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Arrays;
+
 public class DataUtils {
 
 	public static double[] resultantData(double[][] data) {
@@ -41,18 +43,23 @@ public class DataUtils {
 	/**
 	 * 抽取某个客户端的特定传感器的索引
 	 * 
-	 * @param length
+	 * @param totalLen
+	 * 总数据长度
 	 * @param ids
 	 * @param clientIndex
 	 * @param clientsNum
 	 * @return
 	 */
-	public static int[] getClientTargetIndexes(int length, int[] ids, int clientIndex, int clientsNum) {
-		int dataLen = length / clientsNum;
+	public static int[] getClientTargetIndexes(int totalLen, int[] ids, int clientIndex, int clientsNum) {
+		int dataLen = totalLen / clientsNum;
 		for (int i = 0; i < ids.length; i++) {
 			ids[i] += dataLen * clientIndex;
 		}
 		return ids;
+	}
+
+	public static void main(String args[]) {
+		System.out.println(Arrays.toString(DataUtils.getClientTargetIndexes(10, new int[]{0,1}, 1, 2)));
 	}
 
 }

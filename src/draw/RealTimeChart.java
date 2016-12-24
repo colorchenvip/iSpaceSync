@@ -10,4 +10,6 @@ public interface RealTimeChart {
 
 	void clearData();
 
+	void showStaticData(double[][] selectColumns);
+
 }

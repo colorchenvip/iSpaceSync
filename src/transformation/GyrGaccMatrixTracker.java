@@ -33,10 +33,19 @@ public class GyrGaccMatrixTracker {
 		this.global_x = global_x;
 	}
 
-	public double[][] trackGlobalAcc(double[][] accs, double[][] gyrs, double[][] grivitys, double[] dt,
+	public double[][] trackGlobalAcc(double[][] accs, double[][] gyrs, double[][] gravitys, double[] dts,
 			double[] init_x_axis) {
-		// TODO Auto-generated method stub
-		return null;
+		setInitXAxis(init_x_axis);
+		double[][] newAccs = new double[accs.length][];
+		for (int i = 0; i < accs.length; i++) {
+			double[] gyr = gyrs[i];
+			double[] acc = accs[i];
+			double[] gravity = gravitys[i];
+			double dt = dts[i];
+			double[][] rtm_b2g = track_b2g(gyr, gravity, dt);
+			newAccs[i] = CoordinateTracker.getGlobalData(acc, rtm_b2g);
+		}
+		return newAccs;
 	}
 
 }

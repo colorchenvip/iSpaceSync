@@ -17,7 +17,6 @@ public interface SpaceSync {
 
 	DirectionEstimateResults directionEstimatie(MyDataBuffer dataBuffer);
 	
-	TrackingResults oreintationTracking(TrackingCallBack trackingCallBack, double[] data, DirectionEstimateResults directionEstimateResults);
 
 	TrackingResults oreintationTracking(TrackingCallBack trackingCallBack, MyDataBuffer dataBuffer,
 			DirectionEstimateResults directionEstimateResults);

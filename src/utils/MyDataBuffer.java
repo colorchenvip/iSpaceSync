@@ -10,7 +10,6 @@ public class MyDataBuffer {
 	private int size;
 	private int clientsNum;
 
-	private int dataLen;
 
 	public MyDataBuffer(int size, int clientsNum) {
 		this.size = size;
@@ -61,7 +60,7 @@ public class MyDataBuffer {
 		int[] allIndexes = new int[ids.length * clientsNum];
 		for (int i = 0; i < clientsNum; i++) {
 			for (int j = 0; j < ids.length; j++) {
-				allIndexes[i * ids.length + j] = i * dataLen + j;
+				allIndexes[i * ids.length + j] = i * Constants.DATA_LEN + ids[j];
 			}
 		}
 		return MatrixUtils.selectColumns(data, allIndexes);
@@ -74,6 +73,5 @@ public class MyDataBuffer {
 	public void setClientsNum(int clientsNum) {
 		this.clientsNum = clientsNum;
 	}
-
 
 }
