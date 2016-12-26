@@ -2,10 +2,10 @@ package test;
 
 import java.io.IOException;
 
+import core.model.SensorDataSequnce;
 import draw.PhoneDisplayer;
 import draw.PhoneDisplayerPCImpl;
-import spacesync.CoordinateTracker;
-import spacesync.SensorDataList;
+import transformation.CoordinateTracker;
 import transformation.DealWithRotationMatrix_B2G;
 import utils.DataLoadUtils;
 import utils.MatrixUtils;
@@ -15,7 +15,7 @@ public class TestPhoneDisplayer {
 	public static void main(String args[]) throws IOException {
 		final PhoneDisplayer phoneDisplayer = new PhoneDisplayerPCImpl();
 		phoneDisplayer.initView();
-		SensorDataList sensorData = DataLoadUtils.loadSensorData("./datas/2.csv");
+		SensorDataSequnce sensorData = DataLoadUtils.loadSensorData("./datas/2.csv");
 		double[][] gaccs = sensorData.getGravityAccs();
 		double[][] mags = sensorData.getMagnet();
 		double[][] gyrs = sensorData.getGyrs();

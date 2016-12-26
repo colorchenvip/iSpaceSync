@@ -2,13 +2,12 @@ package test;
 
 import java.util.Arrays;
 
-import utils.ArrayUtils;
-import utils.MyDataBuffer;
+import connection.MultiClientDataBuffer;
 
 public class TestDataBuffer {
 
 	public static void main(String[] args) {
-		MyDataBuffer myDataBuffer = new MyDataBuffer(4, 2);
+		MultiClientDataBuffer myDataBuffer = new MultiClientDataBuffer(4, 2);
 		myDataBuffer.add(new double[][] { 
 			{ 0, 1, 2 }, 
 			{ 0, 1, 2 } 

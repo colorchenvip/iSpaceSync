@@ -5,30 +5,29 @@ import java.util.Observer;
 import java.util.Scanner;
 
 import connection.DataServerMultiClient;
-import connection.datalistteners.ObserverConsistentData;
-import connection.datalistteners.ObserverMultiClientChart;
-import connection.datalistteners.ObserverMultiClientData;
-import connection.datalistteners.ObserverSpaceSync;
+import connection.datalistteners.ObserverSpaceSyncMultiClient;
+import core.ConsistentExtraction;
+import core.ConsistentExtractionImpl;
+import core.DirectionEstimator;
+import core.DirectionEstimatorImpl;
+import core.OreintationTracker;
+import core.OreintationTrackerImpl;
+import core.SpaceSync;
+import core.SpaceSyncConsistanceImpl;
 import draw.PhoneDisplayer;
 import draw.PhoneDisplayerPCImpl;
 import draw.PhoneViewCallBack;
-import spacesync.ConsistentExtraction;
-import spacesync.ConsistentExtractionImpl;
-import spacesync.DirectionEstimator;
-import spacesync.DirectionEstimatorImpl;
-import spacesync.OreintationTracker;
-import spacesync.OreintationTrackerImpl;
-import spacesync.SpaceSync;
-import spacesync.SpaceSyncConsistanceImpl;
-import spacesync.TrackingCallBack;
 import transformation.GyrGaccMatrixTracker;
-import utils.Constants;
+import transformation.TrackingCallBack;
+import utils.SpaceSyncConfig;
 
 public class TestMultiClientDataServer {
 
 	public static void main(String[] args) throws IOException {
 		DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
 		dataServerMultiClient.startServer();
+		System.out.println("Press Enter to Ready");
+
 		Scanner scanner = new Scanner(System.in);
 		scanner.nextLine();
 
@@ -53,7 +52,7 @@ public class TestMultiClientDataServer {
 		// Observer dataListener = new ObserverConsistentData(clientsNum,
 		// Constants.DATA_LEN);
 		// dataServerMultiClient.addDataListener(dataListener);
-		Observer spaceSyncOb = new ObserverSpaceSync(clientsNum, spaceSync);
+		Observer spaceSyncOb = new ObserverSpaceSyncMultiClient(clientsNum, spaceSync);
 		dataServerMultiClient.addDataListener(spaceSyncOb);
 		scanner.close();
 		System.out.println("ready to receive data...");

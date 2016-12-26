@@ -6,6 +6,7 @@ import utils.MatrixUtils;
 
 /**
  * Created by leocai on 15-10-10.
+ * 仅用陀螺仪跟踪
  */
 public class GyroMatrixTracker {
 	protected double[][] cuMatrix = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };

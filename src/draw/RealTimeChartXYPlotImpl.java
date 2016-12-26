@@ -13,8 +13,10 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
-public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
+public class RealTimeChartXYPlotImpl extends ApplicationFrame implements RealTimeChart {
 
 	/**
 	 * 
@@ -22,15 +24,18 @@ public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
 	private static final long serialVersionUID = 9127338033397910052L;
 	List<XYSeries> seriesList;
 	private JFreeChart lineChart;
-	private String[] columnNames;
+	protected int cuKey;
+	protected static final int MAX_X = 100;
+
 
 	public RealTimeChartXYPlotImpl(String title, String[] columnNames) {
-		super(title, columnNames);
-		this.columnNames = columnNames;
+		super(title);
 		init(title, columnNames);
+		pack();
+		RefineryUtilities.centerFrameOnScreen(this);
+		setVisible(true);
 	}
 
-	@Override
 	public void init(String title, String[] columnNames) {
 		seriesList = new ArrayList<>();
 		lineChart = ChartFactory.createXYLineChart(title, "index", "readings", createDataset(columnNames),
@@ -53,11 +58,6 @@ public class RealTimeChartXYPlotImpl extends RealTimeChartJFreeChatImpl {
 		for (String col : columnNames) {
 			XYSeries series1 = new XYSeries(col);
 			seriesList.add(series1);
-			// Random rdm = new Random();
-			// series1.add(1,rdm.nextInt(10));
-			// series1.add(2,rdm.nextInt(10));
-			// series1.add(3,rdm.nextInt(10));
-			// series1.add(4,rdm.nextInt(10));
 			dataset.addSeries(series1);
 		}
 		return dataset;

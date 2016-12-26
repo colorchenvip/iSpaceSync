@@ -1,7 +1,5 @@
 package utils;
 
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 
 import org.math.plot.Plot2DPanel;

@@ -1,5 +1,10 @@
 package draw;
 
+/**
+ * 实时图表显示
+ * @author leocai
+ *
+ */
 public interface RealTimeChart {
 
 	void addData(double[] data);

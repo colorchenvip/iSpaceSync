@@ -9,6 +9,11 @@ import javax.vecmath.Vector3d;
 
 import com.sun.j3d.utils.geometry.Box;
 
+/**
+ * 手机3d显示PC端实现
+ * @author leocai
+ *
+ */
 public class PhoneDisplayerPCImpl implements PhoneDisplayer {
 
 	private float scale = 1;

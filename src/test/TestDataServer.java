@@ -5,11 +5,11 @@ import java.util.Observer;
 
 import connection.DataServer;
 import connection.DataServerSingleClientImpl;
-import connection.datalistteners.ObserverChart;
-import connection.datalistteners.ObserverComplementTrack;
-import connection.datalistteners.ObserverGyrGaccTracker;
-import connection.datalistteners.ObserverGyrTrack;
-import connection.datalistteners.ObserverMagTrack;
+import connection.datalistteners.ObserverChartSingleClient;
+import connection.datalistteners.ObserverComplementTrackSingleClient;
+import connection.datalistteners.ObserverGyrGaccTrackerSingleClient;
+import connection.datalistteners.ObserverGyrTrackSingleClient;
+import connection.datalistteners.ObserverMagTrackSingleClient;
 import transformation.GyroMatrixTracker;
 
 public class TestDataServer {
@@ -18,14 +18,14 @@ public class TestDataServer {
 		DataServer dataServer = new DataServerSingleClientImpl();
 		dataServer.startServer();
 		
-		Observer chartListener = new ObserverChart();
-		Observer magListener = new ObserverMagTrack();
-		Observer gyrListener = new ObserverGyrTrack(GyroMatrixTracker.I);
+		Observer chartListener = new ObserverChartSingleClient();
+		Observer magListener = new ObserverMagTrackSingleClient();
+		Observer gyrListener = new ObserverGyrTrackSingleClient(GyroMatrixTracker.I);
 		dataServer.addDataListener(chartListener);
 		dataServer.addDataListener(magListener);
 		dataServer.addDataListener(gyrListener);
 //		dataServer.addDataListener(new ObserverComplementTrack());
-		dataServer.addDataListener(new ObserverGyrGaccTracker());
+		dataServer.addDataListener(new ObserverGyrGaccTrackerSingleClient());
 		dataServer.receivedData();
 		
 	}

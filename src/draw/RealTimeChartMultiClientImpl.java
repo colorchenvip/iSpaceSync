@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import utils.MatrixUtils;
 
+@Deprecated
 public class RealTimeChartMultiClientImpl implements RealTimeChartMultiClient {
 	RealTimeChart[] charts;
 	private int clientsNum;

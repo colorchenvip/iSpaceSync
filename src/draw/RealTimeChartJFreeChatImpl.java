@@ -13,6 +13,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+@Deprecated
 public class RealTimeChartJFreeChatImpl extends ApplicationFrame implements RealTimeChart {
 
 	/**

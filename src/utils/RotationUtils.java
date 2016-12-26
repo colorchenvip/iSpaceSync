@@ -32,4 +32,49 @@ public class RotationUtils {
 
 		return (rotationMatrix);
 	}
+	
+	/**
+	 * 利用旋转矩阵获取全局数据
+	 * @param localData
+	 * @param rotationMatrix_b2g
+	 * @return
+	 */
+	public static double[] getGlobalData(double[] localData, double[][] rotationMatrix_b2g) {
+		double[][] global_acc = MatrixUtils.multiply(rotationMatrix_b2g, MatrixUtils.convertVectorToMatrix(localData));
+		return MatrixUtils.convertMatrixToVector(global_acc);
+	}
+	
+	/**
+	 * 根据两个向量获得旋转矩阵
+	 * @param v1
+	 * @param v2
+	 * @return
+	 */
+	public static double[][] getRotationMatrixG2BBy2Vectors(double[] v1, double[] v2) {
+		double Ex = v2[0];
+		double Ey = v2[1];
+		double Ez = v2[2];
+		double Ax = v1[0];
+		double Ay = v1[1];
+		double Az = v1[2];
+		double Hx = Ey * Az - Ez * Ay;
+		double Hy = Ez * Ax - Ex * Az;
+		double Hz = Ex * Ay - Ey * Ax;
+		double normH = Math.sqrt(Hx * Hx + Hy * Hy + Hz * Hz);
+		double invH = 1.0 / normH;
+		Hx = Hx * invH;
+		Hy = Hy * invH;
+		Hz = Hz * invH;
+		double invA = 1.0 / Math.sqrt(Ax * Ax + Ay * Ay + Az * Az);
+		Ax = Ax * invA;
+		Ay = Ay * invA;
+		Az = Az * invA;
+		double Mx = Ay * Hz - Az * Hy;
+		double My = Az * Hx - Ax * Hz;
+		double Mz = Ax * Hy - Ay * Hx;
+		return new double[][] { 
+			{ Hx, Mx, Ax }, 
+			{ Hy, My, Ay }, 
+			{ Hz, Mz, Az } };
+	}
 }

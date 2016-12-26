@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 
-import spacesync.SensorDataList;
+import core.model.SensorDataSequnce;
 
 /**
  * 读取csv文件工具类
@@ -18,7 +18,7 @@ import spacesync.SensorDataList;
  */
 public class DataLoadUtils {
 
-	public static SensorDataList loadSensorData(String fileName) throws IOException {
+	public static SensorDataSequnce loadSensorData(String fileName) throws IOException {
 		FileReader fileReader = new FileReader(new File(fileName));
 		String newLine = null;
 		int[] ids = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20 };
@@ -38,7 +38,7 @@ public class DataLoadUtils {
 			}
 			totalDatas[k++] = singleData;
 		}
-		SensorDataList sensorData = new SensorDataList(totalDatas);
+		SensorDataSequnce sensorData = new SensorDataSequnce(totalDatas);
 		bufferedReader.close();
 		return sensorData;
 	}

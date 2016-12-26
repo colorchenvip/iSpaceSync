@@ -2,7 +2,6 @@ package connection;
 
 
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,15 +10,19 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketImpl;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
 import utils.DataUtils;
+import utils.SpaceSyncConfig;
 
 
+/**
+ * 单个客户端接听服务器实现
+ * @author leocai
+ *
+ */
 public class DataServerSingleClientImpl extends Observable implements DataServer {
 
 	private static final int PORT = 10007;
@@ -28,8 +31,6 @@ public class DataServerSingleClientImpl extends Observable implements DataServer
 	private OutputStream out;
 	private InputStream in;
 	private boolean stop;
-	private int[] selectedIds = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20 };
-	private int[] id_acc = new int[]{3,4,5};
 
 	@Override
 	public void startServer() throws IOException {
@@ -73,7 +74,7 @@ public class DataServerSingleClientImpl extends Observable implements DataServer
 				continue;
 			double data[];
 			try {
-				data = DataUtils.parseData(newLine, selectedIds);
+				data = DataUtils.parseData(newLine, SpaceSyncConfig.RECEIVED_SELECTED_INDEXES);
 				setChanged();
 				notifyObservers(data);
 			} catch (Exception e) {

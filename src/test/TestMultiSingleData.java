@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import connection.ClientData;
-import connection.datalistteners.SingleMultiClientData;
+import connection.model.ClientData;
+import connection.model.SingleMultiClientData;
 
 public class TestMultiSingleData {
 

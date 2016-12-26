@@ -1,5 +1,10 @@
 package draw;
 
+/**
+ * 手机的3d显示接口
+ * @author leocai
+ *
+ */
 public interface PhoneDisplayer {
 	
 	void initView();

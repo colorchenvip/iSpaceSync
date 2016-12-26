@@ -8,27 +8,43 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
-import connection.datalistteners.SingleMultiClientData;
+import connection.model.ClientData;
+import connection.model.SingleMultiClientData;
 
+/**
+ * 多客户端的服务端
+ * 
+ * @author leocai
+ *
+ */
 public class DataServerMultiClient extends Observable implements DataServer, Observer {
 
 	private static final int PORT = 10007;
 	private ServerSocket serverSocket;
-	private Map<String, DataReceiveThread> threadsMap = new HashMap<>();
-	private volatile boolean closed;
+	private List<String> clients = new ArrayList<>();
+	/**
+	 * 记录客户端id
+	 */
+	private int cuClientId = 0;
+
+	/**
+	 * 一个客户端对应一个接收线程，接收到数据后通知服务中心线程收集
+	 */
+	private Map<String, DataReceiveThread> receiveThreadMap = new HashMap<>();
 	private List<Observer> observerList = new ArrayList<>();
 
-	List<String> clients = new ArrayList<>();
+	
+	private volatile boolean closed;
+	/**
+	 * 收集多客户端的数据
+	 */
 	SingleMultiClientData singleMultiClientData;
-	int cuClientId = 0;
 
 	@Override
 	public void startServer() throws IOException {
@@ -49,7 +65,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 						String hostAddress = sockect.getInetAddress().getHostAddress();
 						DataReceiveThread clientThread = new DataReceiveThread(cuClientId++, hostAddress, sockect, out,
 								in);
-						threadsMap.put(hostAddress, clientThread);
+						receiveThreadMap.put(hostAddress, clientThread);
 						clients.add(hostAddress);
 						clientThread.addObserver(DataServerMultiClient.this);
 						System.out.println(hostAddress + " connected");
@@ -65,8 +81,8 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	@Override
 	public void closeServer() throws IOException {
 		closed = true;
-		for (String key : threadsMap.keySet()) {
-			threadsMap.get(key).close();
+		for (String key : receiveThreadMap.keySet()) {
+			receiveThreadMap.get(key).close();
 		}
 	}
 
@@ -81,17 +97,16 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 
 	@Override
 	public void receivedData() throws IOException {
-		singleMultiClientData = new SingleMultiClientData(clients);
-		for (String key : threadsMap.keySet()) {
-			new Thread(threadsMap.get(key)).start();
+		singleMultiClientData = new SingleMultiClientData(clients.size());
+		for (String key : receiveThreadMap.keySet()) {
+			new Thread(receiveThreadMap.get(key)).start();
 		}
 	}
 
 	@Override
 	public void stopReceiveData() {
-		singleMultiClientData = new SingleMultiClientData(clients);
-		for (String key : threadsMap.keySet()) {
-			threadsMap.get(key).stop();
+		for (String key : receiveThreadMap.keySet()) {
+			receiveThreadMap.get(key).stop();
 		}
 	}
 

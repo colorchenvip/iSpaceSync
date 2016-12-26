@@ -1,7 +1,12 @@
 package draw;
 
-import spacesync.TrackingCallBack;
+import transformation.TrackingCallBack;
 
+/**
+ * 手机显示回调函数
+ * @author leocai
+ *
+ */
 public class PhoneViewCallBack implements TrackingCallBack {
 
 	PhoneDisplayer phoneDisplayer;

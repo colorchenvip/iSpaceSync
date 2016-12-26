@@ -8,8 +8,17 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Observable;
 
+import connection.model.ClientData;
+import utils.SpaceSyncConfig;
 import utils.DataUtils;
 
+/**
+ * 数据接收线程
+ * 一个客户端对应一个
+ * 接收数据后通知观察者
+ * @author leocai
+ *
+ */
 public class DataReceiveThread extends Observable implements Runnable {
 
 	private boolean stop;
@@ -17,7 +26,6 @@ public class DataReceiveThread extends Observable implements Runnable {
 	private Socket socket;
 	private OutputStream out;
 	private InputStream in;
-	private int[] selectedIds = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20 };
 	private int clientId;
 
 	public DataReceiveThread(int clientId, String client, Socket socket, OutputStream out, InputStream in) {
@@ -39,7 +47,7 @@ public class DataReceiveThread extends Observable implements Runnable {
 					continue;
 				double data[];
 				try {
-					data = DataUtils.parseData(newLine, selectedIds);
+					data = DataUtils.parseData(newLine, SpaceSyncConfig.RECEIVED_SELECTED_INDEXES);
 					setChanged();
 					notifyObservers(new ClientData(clientId, client, data));
 				} catch (Exception e) {

@@ -1,11 +1,14 @@
 package transformation;
 
-import java.util.Arrays;
-
 import utils.MatrixUtils;
 import utils.RotationUtils;
 import utils.VectorUtils;
 
+/**
+ * 重力定期补偿姿态跟踪
+ * @author leocai
+ *
+ */
 public class ComplementaryMatrixTracker extends GyroMatrixTracker {
 
 	private double[] preGravity;

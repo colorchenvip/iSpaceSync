@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 
 import org.math.plot.Plot2DPanel;
 
-import spacesync.SensorDataList;
-import spacesync.SpaceSync;
-import spacesync.SpaceSyncImpl;
+import core.SpaceSync;
+import core.SpaceSyncImpl;
+import core.model.SensorDataSequnce;
 import utils.DataLoadUtils;
 import utils.MatrixUtils;
 import utils.PlotUtils;
@@ -19,7 +19,7 @@ public class TestSpaceSync {
 
 	public static void main(String[] args) throws IOException {
 		SpaceSync spaceSync = new SpaceSyncImpl(3);
-		SensorDataList sensorData;
+		SensorDataSequnce sensorData;
 		sensorData = DataLoadUtils.loadSensorData("datas/run_walk_native_gravity/top/walk" + 1 + ".csv");
 		// double rs = spaceSync.singleSync(sensorData);
 		// System.out.println(rs);

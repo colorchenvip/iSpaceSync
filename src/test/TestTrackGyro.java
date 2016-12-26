@@ -3,10 +3,10 @@ package test;
 import java.io.IOException;
 import java.util.Arrays;
 
+import core.model.SensorDataSequnce;
 import draw.PhoneDisplayer;
 import draw.PhoneDisplayerPCImpl;
-import spacesync.CoordinateTracker;
-import spacesync.SensorDataList;
+import transformation.CoordinateTracker;
 import transformation.GyroMatrixTracker;
 import utils.DataLoadUtils;
 import utils.MatrixUtils;
@@ -70,7 +70,7 @@ public class TestTrackGyro {
 	}
 
 	private static void test3() throws IOException {
-		SensorDataList sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
+		SensorDataSequnce sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
 		double[][] computed_gacc = sensorData.computeGlobalByMag();
 		CoordinateTracker coordinateTracker = new CoordinateTracker();
 		double[][] g_acc = coordinateTracker.trackByGyro(sensorData.getLinearAccs(), sensorData.getGyrs(),
@@ -78,7 +78,7 @@ public class TestTrackGyro {
 	}
 
 	private static void test2() throws IOException {
-		SensorDataList sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
+		SensorDataSequnce sensorData = DataLoadUtils.loadSensorData("./datas/1.csv");
 		double[][] local_acc = sensorData.getLinearAccs();
 		CoordinateTracker coordinateTracker = new CoordinateTracker();
 		double[][] g_acc = coordinateTracker.trackByGyro(sensorData.getLinearAccs(), sensorData.getGyrs(),
