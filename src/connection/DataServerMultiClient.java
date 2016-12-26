@@ -28,6 +28,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 
 	List<String> clients = new ArrayList<>();
 	SingleMultiClientData singleMultiClientData;
+	int cuClientId = 0;
 
 	@Override
 	public void startServer() throws IOException {
@@ -46,7 +47,8 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 						OutputStream out = sockect.getOutputStream();
 						InputStream in = sockect.getInputStream();
 						String hostAddress = sockect.getInetAddress().getHostAddress();
-						DataReceiveThread clientThread = new DataReceiveThread(hostAddress, sockect, out, in);
+						DataReceiveThread clientThread = new DataReceiveThread(cuClientId++, hostAddress, sockect, out,
+								in);
 						threadsMap.put(hostAddress, clientThread);
 						clients.add(hostAddress);
 						clientThread.addObserver(DataServerMultiClient.this);
@@ -103,8 +105,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	public void update(Observable o, Object arg) {
 		ClientData clientData = (ClientData) arg;
 		if (singleMultiClientData.add(clientData)) {
-			double[] multiData = singleMultiClientData.get();
-			System.out.println(Arrays.toString(multiData));
+			double[][] multiData = singleMultiClientData.get();
 			setChanged();
 			notifyObservers(multiData);
 		}

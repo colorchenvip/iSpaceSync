@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import draw.PhoneDisplayer;
-import draw.PhoneDisplayerImpl;
+import draw.PhoneDisplayerPCImpl;
 import spacesync.CoordinateTracker;
 import spacesync.SingleSensorData;
 import transformation.ComplementaryMatrixTracker;
@@ -14,7 +14,7 @@ import utils.MatrixUtils;
 public class ObserverComplementTrack implements Observer {
 
 	ComplementaryMatrixTracker complementaryMatrixTracker = new ComplementaryMatrixTracker();
-	PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
+	PhoneDisplayer phoneDisplayer = new PhoneDisplayerPCImpl();
 	boolean init = false;
 
 	public ObserverComplementTrack() {

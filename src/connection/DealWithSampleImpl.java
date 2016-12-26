@@ -3,7 +3,7 @@ package connection;
 import java.util.Arrays;
 
 import draw.PhoneDisplayer;
-import draw.PhoneDisplayerImpl;
+import draw.PhoneDisplayerPCImpl;
 import draw.RealTimeChart;
 import draw.RealTimeChartJFreeChatImpl;
 import spacesync.SensorDataList;
@@ -17,7 +17,7 @@ public class DealWithSampleImpl implements DealWithSample {
 
 	RealTimeChart realTimeChart = new RealTimeChartJFreeChatImpl("11", new String[] { "" });
 	GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
-	PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
+	PhoneDisplayer phoneDisplayer = new PhoneDisplayerPCImpl();
 
 	@Override
 	public void init(double[][] cuMatrixB2G) {

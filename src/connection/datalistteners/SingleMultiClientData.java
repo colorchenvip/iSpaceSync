@@ -9,7 +9,7 @@ import spacesync.SingleSensorData;
 public class SingleMultiClientData {
 
 	private List<String> clients;
-	private double[] data;
+	private double[][] data;
 	private int mask;
 	private final int MASK_FULL;
 
@@ -20,16 +20,14 @@ public class SingleMultiClientData {
 		for (int i = 0; i < clients.size(); i++) {
 			tmpMask |= 1 << i;
 		}
+		data = new double[clients.size()][];
 		MASK_FULL = tmpMask;
 	}
 
 	public boolean add(ClientData clientData) {
-		int id = clients.indexOf(clientData.getKey());
+		int id = clientData.getId();
 		double[] cdata = clientData.getData();
-		if (data == null) {
-			data = new double[clients.size() * cdata.length];
-		}
-		System.arraycopy(cdata, 0, data, id * cdata.length, cdata.length);
+		data[id] = cdata;
 		setMask(id);
 		return isFull();
 	}
@@ -42,8 +40,8 @@ public class SingleMultiClientData {
 		mask |= 1 << id;
 	}
 
-	public double[] get() {
-		double[] newData = Arrays.copyOf(data, data.length);
+	public double[][] get() {
+		double[][] newData = Arrays.copyOf(data, data.length);
 		mask = 0;
 		return newData;
 	}

@@ -25,17 +25,17 @@ public class ObserverMultiClientData implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		ClientData clientData = (ClientData) arg;
-		if (!chartMap.containsKey(clientData.getKey())) {
-			RealTimeChart newChart = new RealTimeChartXYPlotImpl(clientData.getKey(), new String[] { "X", "Y", "Z" });
-			chartMap.put(clientData.getKey(), newChart);
-		}
-		RealTimeChart chart = chartMap.get(clientData.getKey());
-		SingleSensorData sensorDataList = new SingleSensorData(clientData.getData());
-		chart.addData(sensorDataList.getAcc());
-		if (singleMultiClientData.add(clientData)) {
-			double[] multiData = singleMultiClientData.get();
-		}
+//		ClientData clientData = (ClientData) arg;
+//		if (!chartMap.containsKey(clientData.getKey())) {
+//			RealTimeChart newChart = new RealTimeChartXYPlotImpl(clientData.getKey(), new String[] { "X", "Y", "Z" });
+//			chartMap.put(clientData.getKey(), newChart);
+//		}
+//		RealTimeChart chart = chartMap.get(clientData.getKey());
+//		SingleSensorData sensorDataList = new SingleSensorData(clientData.getData());
+//		chart.addData(sensorDataList.getAcc());
+//		if (singleMultiClientData.add(clientData)) {
+//			double[] multiData = singleMultiClientData.get();
+//		}
 	}
 
 }

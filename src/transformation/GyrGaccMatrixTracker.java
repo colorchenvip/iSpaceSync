@@ -3,6 +3,7 @@ package transformation;
 import java.util.Arrays;
 
 import spacesync.CoordinateTracker;
+import spacesync.TrackingCallBack;
 import utils.MatrixUtils;
 import utils.RotationUtils;
 import utils.VectorUtils;
@@ -46,6 +47,21 @@ public class GyrGaccMatrixTracker {
 			newAccs[i] = CoordinateTracker.getGlobalData(acc, rtm_b2g);
 		}
 		return newAccs;
+	}
+
+	public void track_b2g(TrackingCallBack trackingCallBack, double[][] gyrs, double[][] gravitys, double[] dts) {
+		for (int i = 0; i < gyrs.length; i++) {
+			double[] gyr = gyrs[i];
+			double[] gravity = gravitys[i];
+			double dt = dts[i];
+			double[][] rtm_b2g = track_b2g(gyr, gravity, dt);
+			trackingCallBack.dealWithRotationMatrix_b2g(rtm_b2g);
+		}
+	}
+
+	public void track_b2g(TrackingCallBack trackingCallBack, double[] gyr, double[] grivity, double dt) {
+		double[][] rtm_b2g = track_b2g(gyr, grivity, dt);
+		trackingCallBack.dealWithRotationMatrix_b2g(rtm_b2g);
 	}
 
 }

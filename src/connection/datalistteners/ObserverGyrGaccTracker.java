@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import draw.PhoneDisplayer;
-import draw.PhoneDisplayerImpl;
+import draw.PhoneDisplayerPCImpl;
 import spacesync.CoordinateTracker;
 import spacesync.SingleSensorData;
 import transformation.GyrGaccMatrixTracker;
@@ -13,12 +13,9 @@ import utils.MatrixUtils;
 public class ObserverGyrGaccTracker implements Observer {
 
 	GyrGaccMatrixTracker gyrGaccMatrixTracker = new GyrGaccMatrixTracker();
-	PhoneDisplayer PhoneDisplayer = new PhoneDisplayerImpl();
+	PhoneDisplayer PhoneDisplayer = new PhoneDisplayerPCImpl();
 	private boolean first = true;
 
-	{
-		PhoneDisplayer.initView();
-	}
 
 	@Override
 	public void update(Observable o, Object arg) {

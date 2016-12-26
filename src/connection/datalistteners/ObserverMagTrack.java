@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import draw.PhoneDisplayer;
-import draw.PhoneDisplayerImpl;
+import draw.PhoneDisplayerPCImpl;
 import spacesync.CoordinateTracker;
 import spacesync.SensorDataList;
 import spacesync.SingleSensorData;
@@ -14,7 +14,7 @@ import utils.MatrixUtils;
 public class ObserverMagTrack implements Observer {
 	
 	GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
-	PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
+	PhoneDisplayer phoneDisplayer = new PhoneDisplayerPCImpl();
 	
 	public ObserverMagTrack(){
 		phoneDisplayer.initView();

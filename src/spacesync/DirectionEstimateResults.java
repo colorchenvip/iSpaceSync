@@ -5,26 +5,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DirectionEstimateResults {
-	private List<double[]> clientsRs;
-
-	public List<double[]> getClientsRs() {
-		return clientsRs;
-	}
-
-	public void setClientsRs(List<double[]> clientsRs) {
-		this.clientsRs = clientsRs;
-	}
+	private double[][] clinetsInitXAxis;
 
 	public DirectionEstimateResults(int clientsNum) {
-		clientsRs = new ArrayList<>(clientsNum);
+		clinetsInitXAxis = new double[clientsNum][3];
 	}
 
-	public void add(double[] syncRs) {
-		clientsRs.add(syncRs);
+	public double[][] getClientsInitXAxis() {
+		return clinetsInitXAxis;
+	}
+
+	public void setClientsRs(double[][] clientsRs) {
+		this.clinetsInitXAxis = clientsRs;
+	}
+
+	public void set(int clientId, double[] syncRs) {
+		clinetsInitXAxis[clientId] = syncRs;
 	}
 
 	public void printAngle() {
-		for (double[] rs : clientsRs) {
+		for (double[] rs : clinetsInitXAxis) {
 			System.out.println(Math.atan2(rs[0], rs[1]) / Math.PI * 180);
 		}
 

@@ -18,8 +18,10 @@ public class DataReceiveThread extends Observable implements Runnable {
 	private OutputStream out;
 	private InputStream in;
 	private int[] selectedIds = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20 };
+	private int clientId;
 
-	public DataReceiveThread(String client, Socket socket, OutputStream out, InputStream in) {
+	public DataReceiveThread(int clientId, String client, Socket socket, OutputStream out, InputStream in) {
+		this.clientId = clientId;
 		this.client = client;
 		this.socket = socket;
 		this.out = out;
@@ -39,7 +41,7 @@ public class DataReceiveThread extends Observable implements Runnable {
 				try {
 					data = DataUtils.parseData(newLine, selectedIds);
 					setChanged();
-					notifyObservers(new ClientData(client, data));
+					notifyObservers(new ClientData(clientId, client, data));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

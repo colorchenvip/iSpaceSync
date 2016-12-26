@@ -9,10 +9,14 @@ import javax.vecmath.Vector3d;
 
 import com.sun.j3d.utils.geometry.Box;
 
-public class PhoneDisplayerImpl implements PhoneDisplayer {
+public class PhoneDisplayerPCImpl implements PhoneDisplayer {
 
 	private float scale = 1;
 	private TransformGroup tg;
+
+	public PhoneDisplayerPCImpl() {
+		initView();
+	}
 
 	@Override
 	public void initView() {
@@ -46,15 +50,15 @@ public class PhoneDisplayerImpl implements PhoneDisplayer {
 		double[] rtm = new double[9];
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				rtm[i*3+j] = rtm_b2g[i][j];
+				rtm[i * 3 + j] = rtm_b2g[i][j];
 			}
 		}
 		Matrix3d matrix3d = new Matrix3d(rtm);
 		transform3.set(matrix3d);
-//		transform3.mul(getTransform3D());
+		// transform3.mul(getTransform3D());
 		// transform.mul(transform3);
 		// tg.setTransform(transform);
-//		transform3.setTranslation(new Vector3d(x, y, z));
+		// transform3.setTranslation(new Vector3d(x, y, z));
 
 		tg.setTransform(transform3);
 	}

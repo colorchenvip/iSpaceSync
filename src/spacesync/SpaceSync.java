@@ -10,15 +10,17 @@ import utils.MyDataBuffer;
  *
  */
 public interface SpaceSync {
-	
+
+	@Deprecated
 	DirectionEstimateResults spaceSync(SensorDataSet sensorDataSet);
-	
+
+	@Deprecated
 	double singleSync(SensorDataList sensorData);
 
-	DirectionEstimateResults directionEstimatie(MyDataBuffer dataBuffer);
-	
+	DirectionEstimateResults directionEstimate(MyDataBuffer dataBuffer);
 
-	TrackingResults oreintationTracking(TrackingCallBack trackingCallBack, MyDataBuffer dataBuffer,
-			DirectionEstimateResults directionEstimateResults);
+	TrackingResults oreintationTracking(double[][] data_multi, DirectionEstimateResults directionEstimateResults);
+
+	void sync(MyDataBuffer buffer, double[][] data_multi);
 
 }

@@ -24,7 +24,7 @@ public class TestDataServer {
 		dataServer.addDataListener(chartListener);
 		dataServer.addDataListener(magListener);
 		dataServer.addDataListener(gyrListener);
-		dataServer.addDataListener(new ObserverComplementTrack());
+//		dataServer.addDataListener(new ObserverComplementTrack());
 		dataServer.addDataListener(new ObserverGyrGaccTracker());
 		dataServer.receivedData();
 		

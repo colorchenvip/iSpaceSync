@@ -56,4 +56,12 @@ public class VectorUtils {
 		return vectorMultiply(gyr, grivity)/ absVector(grivity);
 		
 	}
+
+	public static double mean(double[] data) {
+		double mean = 0;
+		for (double d : data) {
+			mean += d;
+		}
+		return mean / data.length;
+	}
 }

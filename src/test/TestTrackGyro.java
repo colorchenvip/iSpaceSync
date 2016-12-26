@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import draw.PhoneDisplayer;
-import draw.PhoneDisplayerImpl;
+import draw.PhoneDisplayerPCImpl;
 import spacesync.CoordinateTracker;
 import spacesync.SensorDataList;
 import transformation.GyroMatrixTracker;
@@ -29,7 +29,7 @@ public class TestTrackGyro {
 	}
 
 	private static void testAssumedData() {
-		PhoneDisplayer phoneDisplayer = new PhoneDisplayerImpl();
+		PhoneDisplayer phoneDisplayer = new PhoneDisplayerPCImpl();
 		phoneDisplayer.initView();
 		GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
 //		for (int i = 0; i < 1000; i++) {

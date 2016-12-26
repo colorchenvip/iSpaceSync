@@ -244,4 +244,33 @@ public class MatrixUtils {
 		return selectedData;
 	}
 
+	public static double[][] combineMultiClientData(double[][][] data_multi) {
+		int clientNum = data_multi.length;
+		int row = data_multi[0].length;
+		int singleClientColumns = data_multi[0][0].length;
+		double[][] data = new double[row][clientNum * singleClientColumns];
+		for (int client = 0; client < clientNum; client++) {
+			for (int rowId = 0; rowId < row; rowId++) {
+				for (int singleColumnId = 0; singleColumnId < singleClientColumns; singleColumnId++) {
+					data[rowId][client * singleClientColumns
+							+ singleColumnId] = data_multi[client][rowId][singleColumnId];
+				}
+			}
+		}
+		return data;
+	}
+
+	public static double[][] copyAndSetColumn(double[][] tracked_lacc, int columnId, int val) {
+		int row = tracked_lacc.length, column = tracked_lacc[0].length;
+		double[][] new_data = new double[row][column];
+		for (int j = 0; j < column; j++) {
+			if (j == columnId)
+				continue;
+			for (int i = 0; i < row; i++) {
+				new_data[i][j] = tracked_lacc[i][j];
+			}
+		}
+		return new_data;
+	}
+
 }

@@ -4,10 +4,12 @@ public class ClientData {
 
 	private String key;
 	private double[] data;
+	private int id;
 
-	public ClientData(String key, double[] data) {
+	public ClientData(int id, String key, double[] data) {
 		this.key = key;
 		this.data = data;
+		this.id = id;
 	}
 
 	public String getKey() {
@@ -24,6 +26,10 @@ public class ClientData {
 
 	public void setData(double[] data) {
 		this.data = data;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 }

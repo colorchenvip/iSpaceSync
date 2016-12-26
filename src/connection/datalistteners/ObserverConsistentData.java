@@ -29,10 +29,10 @@ public class ObserverConsistentData implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		double[] data = (double[]) arg;
-		buffer.add(data);
-		double[] consistentData = consistentExtraction.extractConsistentData(buffer.getLacc());
-		chart.showStaticData(consistentData);
+//		double[] data = (double[]) arg;
+//		buffer.add(data);
+//		double[] consistentData = consistentExtraction.extractConsistentData(buffer.getLacc());
+//		chart.showStaticData(consistentData);
 		
 	}
 

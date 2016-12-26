@@ -14,17 +14,19 @@ public class ObserverSpaceSync implements Observer {
 	SpaceSync spacesync;
 	private MyDataBuffer buffer;
 
-	public ObserverSpaceSync(int clientNum) {
-		spacesync = new SpaceSyncImpl(clientNum);
+	public ObserverSpaceSync(int clientNum, SpaceSync spacesync) {
+		this.spacesync = spacesync;
 		buffer = new MyDataBuffer(Constants.BUFFER_SIZE, clientNum);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		double[] data = (double[]) arg;
-		buffer.add(data);
-		DirectionEstimateResults directionEstimateResults = spacesync.directionEstimatie(buffer);
-		directionEstimateResults.printAngle();
+		double[][] data_multiClient = (double[][]) arg;
+		buffer.add(data_multiClient);
+		spacesync.sync(buffer, data_multiClient);
+		// DirectionEstimateResults directionEstimateResults =
+		// spacesync.directionEstimate(buffer);
+		// directionEstimateResults.printAngle();
 	}
 
 }

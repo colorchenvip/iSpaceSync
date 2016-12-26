@@ -1,13 +1,13 @@
 package test;
 
 import connection.datalistteners.ObserverGyrGaccTracker;
-import draw.PhoneDisplayerImpl;
+import draw.PhoneDisplayerPCImpl;
 import transformation.GyrGaccMatrixTracker;
 
 public class TestObserverGyrGaccTracker {
 
 	public static void main(String[] args) {
-		PhoneDisplayerImpl phoneDisplayerImpl = new PhoneDisplayerImpl();
+		PhoneDisplayerPCImpl phoneDisplayerImpl = new PhoneDisplayerPCImpl();
 		phoneDisplayerImpl.initView();
 		GyrGaccMatrixTracker gaccMatrixTracker = new GyrGaccMatrixTracker();
 		gaccMatrixTracker.setInitXAxis(new double[] { 1, 0, 0 });

@@ -4,56 +4,44 @@ import spacesync.SensorDataList;
 
 public class MyDataBuffer {
 
-	double buffer[][];
+	double buffer[][][]; // client row column
 	int s;
 	int e;
 	private int size;
 	private int clientsNum;
 
-
 	public MyDataBuffer(int size, int clientsNum) {
 		this.size = size;
 		this.clientsNum = clientsNum;
-		buffer = new double[size][];
+		buffer = new double[clientsNum][size][];
 	}
 
-	public void add(double[] data) {
+	public void add(double[][] data_multiClient) {
 		if (e >= size) {
 			s++;
 		}
-		buffer[e % size] = data;
+		for (int client = 0; client < clientsNum; client++) {
+			buffer[client][e % size] = data_multiClient[client];
+		}
 		e++;
-
 	}
 
-	public double[][] get() {
+	public SensorDataList getClientSensorData(int clientId) {
+		double[][][] data = get();
+		SensorDataList sensorDataList = new SensorDataList(data[clientId]);
+		return sensorDataList;
+	}
+
+	public double[][][] get() {
 		int len = e - s;
-		double data[][] = new double[len][];
-		int k = 0;
-		for (int i = s; i < e; i++) {
-			data[k++] = buffer[i % size];
+		double data[][][] = new double[clientsNum][len][];
+		for (int client = 0; client < clientsNum; client++) {
+			int k = 0;
+			for (int row = s; row < e; row++) {
+				data[client][k++] = buffer[client][row % size];
+			}
 		}
 		return data;
-	}
-
-	public double[][] getLacc() {
-		double[][] data = get();
-		return selectedColumns(data, SensorDataList.LINEAR_ACC_INDEXES);
-	}
-
-	public double[][] getGravity() {
-		double[][] data = get();
-		return selectedColumns(data, SensorDataList.GRIVITY_INDEXES);
-	}
-
-	public double[][] getDT() {
-		double[][] data = get();
-		return selectedColumns(data, SensorDataList.DT_INDEXES);
-	}
-
-	public double[][] getGYR() {
-		double[][] data = get();
-		return selectedColumns(data, SensorDataList.GYR_INDEXES);
 	}
 
 	private double[][] selectedColumns(double[][] data, int[] ids) {
