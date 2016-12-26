@@ -1,5 +1,4 @@
-package com.dislab.leocai.spacesync;
-
+package com.dislab.leocai.spacesync.test;
 
 import java.io.IOException;
 import java.util.Observer;
@@ -20,25 +19,18 @@ import com.dislab.leocai.spacesync.draw.PhoneViewCallBack;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
 import com.dislab.leocai.spacesync.transformation.TrackingCallBack;
 
-
-
-
-
-/**
- * 程序入口
- * @author leocai
- *
- */
-public class ServerStarter {
+public class TestMultiClientDataServer {
 
 	public static void main(String[] args) throws IOException {
 		DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
 		dataServerMultiClient.startServer();
-		System.out.println("After connected, press Enter to Ready");
+		System.out.println("Press Enter to Ready");
 
 		Scanner scanner = new Scanner(System.in);
 		scanner.nextLine();
-		
+
+		// dataServerMultiClient.addDataListener(new
+		// ObserverMultiClientChart());
 		int clientsNum = dataServerMultiClient.getClientsNum();
 		ConsistentExtraction consistentExtraction = new ConsistentExtractionImpl();
 		GyrGaccMatrixTracker matrixTracker = new GyrGaccMatrixTracker();
@@ -55,6 +47,9 @@ public class ServerStarter {
 		OreintationTracker oreintationTracker = new OreintationTrackerImpl(clientsNum, matrixTrackers,
 				trackingCallBacks);
 		SpaceSync spaceSync = new SpaceSyncConsistanceImpl(clientsNum, directionEstimator, oreintationTracker);
+		// Observer dataListener = new ObserverConsistentData(clientsNum,
+		// Constants.DATA_LEN);
+		// dataServerMultiClient.addDataListener(dataListener);
 		Observer spaceSyncOb = new ObserverSpaceSyncMultiClient(clientsNum, spaceSync);
 		dataServerMultiClient.addDataListener(spaceSyncOb);
 		scanner.close();
