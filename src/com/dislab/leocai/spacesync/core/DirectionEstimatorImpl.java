@@ -6,9 +6,6 @@ import java.util.List;
 import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
-import com.dislab.leocai.spacesync.ui.RealTimeChart;
-import com.dislab.leocai.spacesync.ui.RealTimeChartXYPlotImpl;
-import com.dislab.leocai.spacesync.utils.ChartsUtils;
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
 import com.dislab.leocai.spacesync.utils.VectorUtils;
 
