@@ -1,8 +1,15 @@
 package com.dislab.leocai.spacesync;
 
+import java.awt.Button;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Observer;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
 
 import com.dislab.leocai.spacesync.connection.DataServerMultiClient;
 import com.dislab.leocai.spacesync.connection.datalistteners.ObserverSpaceSyncMultiClient;
@@ -26,24 +33,45 @@ import com.dislab.leocai.spacesync.ui.SpaceSyncPCFrameDataListener;
  * @author leocai
  *
  */
-public class ServerStarter {
+public class ServerStarter extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6233500417051460469L;
 	private DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
 	private ConsistentExtraction consistentExtraction = new ConsistentExtractionImpl();
 	private GyrGaccMatrixTracker matrixTracker = new GyrGaccMatrixTracker();
+	private Label label_info;
+
+	public ServerStarter() {
+		setTitle("Space Sync");
+		setLayout(new GridLayout(2, 1));
+		setSize(1024, 768);
+		label_info = new Label("");
+		add(label_info);
+		Button btn = new Button("ready");
+		add(btn);
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				constructSpaceSyncAlogrithmListener();				
+			}
+		});
+		setVisible(true);
+	}
 
 	public void run() throws IOException {
 		dataServerMultiClient.startServer();
-		System.out.println("Wait for client");
-
-		System.out.println("After connected, press Enter to Ready");
+		label_info.setText("Wait for client\nAfter connected, press Enter to Ready");
 
 		Scanner scanner = new Scanner(System.in);
 		scanner.nextLine();
 
 		constructSpaceSyncAlogrithmListener();
 
-		System.out.println("Ready to receive data...");
+		label_info.setText("Ready to receive data...");
 		dataServerMultiClient.receivedData();
 		scanner.close();
 	}
