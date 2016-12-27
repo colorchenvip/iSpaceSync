@@ -14,10 +14,10 @@ import com.dislab.leocai.spacesync.core.OreintationTracker;
 import com.dislab.leocai.spacesync.core.OreintationTrackerImpl;
 import com.dislab.leocai.spacesync.core.SpaceSync;
 import com.dislab.leocai.spacesync.core.SpaceSyncConsistanceImpl;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayerPCImpl;
-import com.dislab.leocai.spacesync.draw.PhoneViewCallBack;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
 import com.dislab.leocai.spacesync.transformation.TrackingCallBack;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayerPCImpl;
+import com.dislab.leocai.spacesync.ui.PhoneViewCallBack;
 
 public class TestMultiClientDataServer {
 

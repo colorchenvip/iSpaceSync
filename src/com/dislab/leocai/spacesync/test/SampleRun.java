@@ -15,11 +15,6 @@ public class SampleRun {
             {6, 5, 4, 3, 2, 1},
             {2, 2, 2, 2, 2, 2}});
         PCA pca = new PCA(trainingData);
-        /** Test data to be transformed. The same convention of representing
-        * data points as in the training data matrix is used. */
-        Matrix testData = new Matrix(new double[][] {
-                {1, 2, 3, 4, 5, 6},
-                {1, 2, 1, 2, 1, 2}});
         /** The transformed test data. */
         Matrix transformedData =
             pca.transform(trainingData, PCA.TransformationType.WHITENING);

@@ -12,6 +12,8 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 	DirectionEstimator directionEstimator;
 	private OreintationTracker oreintationTracker;
 	private int clientsNum;
+	private long sampleCount;
+	private long preSampleCount = -SpaceSyncConfig.BUFFER_SIZE;
 
 	public SpaceSyncConsistanceImpl(int clientsNum, DirectionEstimator directionEstimator,
 			OreintationTracker oreintationTracker) {
@@ -22,17 +24,20 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 
 	@Override
 	public void sync(MultiClientDataBuffer buffer) {
+		sampleCount++;
 		DirectionEstimateResults directions = null;
 		boolean isSyncTime = isSyncTime(buffer, SpaceSyncConfig.SYNC_THRESHOLD);
-		// if (isSyncTime) {
-		// System.out.println("Sync Time!");
-		if(isSyncTime) System.out.println("Sync Time!");
+		if (isSyncTime) {
+			System.out.println("Sync Time!");
+			preSampleCount = sampleCount;
+		}
 		directions = directionEstimate(buffer);
-		// }
 		oreintationTracking(buffer, directions, isSyncTime);
 	}
 
 	private boolean isSyncTime(MultiClientDataBuffer buffer, double threshold) {
+		if ((sampleCount - preSampleCount) < SpaceSyncConfig.BUFFER_SIZE)
+			return false;
 		for (int i = 0; i < clientsNum; i++) {
 			SensorDataSequnce sensorData = buffer.getClientSensorData(i);
 			double[][] laccs = sensorData.getLinearAccs();
@@ -42,7 +47,6 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 		}
 		return true;
 	}
-
 
 	@Override
 	public double singleSync(SensorDataSequnce sensorData) {
@@ -55,8 +59,8 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 	}
 
 	@Override
-	public TrackingResults oreintationTracking(MultiClientDataBuffer buffer, DirectionEstimateResults directionEstimateResults,
-			boolean isSyncTime) {
+	public TrackingResults oreintationTracking(MultiClientDataBuffer buffer,
+			DirectionEstimateResults directionEstimateResults, boolean isSyncTime) {
 		return oreintationTracker.track(buffer, directionEstimateResults, isSyncTime);
 	}
 

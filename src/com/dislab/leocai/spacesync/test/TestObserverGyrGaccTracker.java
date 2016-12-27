@@ -1,7 +1,7 @@
 package com.dislab.leocai.spacesync.test;
 
-import com.dislab.leocai.spacesync.draw.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayerPCImpl;
 
 public class TestObserverGyrGaccTracker {
 

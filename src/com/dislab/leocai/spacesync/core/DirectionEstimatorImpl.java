@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
-import com.dislab.leocai.spacesync.draw.RealTimeChart;
-import com.dislab.leocai.spacesync.draw.RealTimeChartXYPlotImpl;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
+import com.dislab.leocai.spacesync.ui.RealTimeChart;
+import com.dislab.leocai.spacesync.ui.RealTimeChartXYPlotImpl;
 import com.dislab.leocai.spacesync.utils.ChartsUtils;
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
 import com.dislab.leocai.spacesync.utils.VectorUtils;
@@ -17,16 +17,14 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	private int clientsNum;
 	private ConsistentExtraction consistentExtraction;
 	private GyrGaccMatrixTracker matrixTracker;
-	RealTimeChart charts[];
-	RealTimeChart chartFc;
+	private GlobalLinearAccListener globalLinearAccListener;
+	private ConsistantAccListener consistantLinearAccListener;
 
 	public DirectionEstimatorImpl(int clientsNum, ConsistentExtraction consistentExtraction,
 			GyrGaccMatrixTracker matrixTracker) {
 		this.clientsNum = clientsNum;
 		this.consistentExtraction = consistentExtraction;
 		this.matrixTracker = matrixTracker;
-		charts = ChartsUtils.initMultiLacc("Tracked Horizental Linear Acc", clientsNum);
-		chartFc = new RealTimeChartXYPlotImpl("FC", new String[] { "PC!" });
 	}
 
 	@Override
@@ -40,20 +38,15 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 			double[][] tracked_hori_lacc = MatrixUtils.copyAndSetColumn(tracked_lacc, 2, 0);// project
 																							// Horizental
 
-			plotClinet(clientId, tracked_hori_lacc);
-
+			consistantLinearAccListener.dealWithClientGlobalAcc(clientId, tracked_hori_lacc);
 			tracked_hori_lacc_multi[clientId] = tracked_hori_lacc;
 		}
 
 		double[] Fc = consistentExtraction
 				.extractConsistentData(MatrixUtils.combineMultiClientData(tracked_hori_lacc_multi));
-		chartFc.showStaticData(Fc);
+		globalLinearAccListener.dealWithConsistant(Fc);
 		DirectionEstimateResults syncResult = getEstimateResults(tracked_hori_lacc_multi, Fc);
 		return syncResult;
-	}
-
-	private void plotClinet(int clientId, double[][] linearAccs) {
-		charts[clientId].showStaticData(linearAccs);
 	}
 
 	private DirectionEstimateResults getEstimateResults(double[][][] tracked_hori_lacc_multi, double[] Fc) {
@@ -74,7 +67,7 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	private List<Integer> selectIndexesByFc(double[] fc) {
 		List<Integer> selectedRow = new ArrayList<>(fc.length);
 		for (int i = 0; i < fc.length; i++) {
-			if (fc[i] >= 0) {
+			if (fc[i] >= 0.5) {
 				selectedRow.add(i);
 			}
 		}
@@ -88,6 +81,17 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 		double[] dt = sensorDataList.getDT();
 		double[][] clinetTrackedData = matrixTracker.trackGlobalAcc(accs, gyrs, gravitys, dt, init_x_axis);
 		return clinetTrackedData;
+	}
+
+	@Override
+	public void addGlobalLinearAccListener(GlobalLinearAccListener globalLinearAccListener) {
+		this.globalLinearAccListener = globalLinearAccListener;
+	}
+
+	@Override
+	public void addConsistantAccListener(ConsistantAccListener clobalLinearAccListener) {
+		this.consistantLinearAccListener = clobalLinearAccListener;
+
 	}
 
 }

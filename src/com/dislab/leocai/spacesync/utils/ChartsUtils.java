@@ -1,7 +1,7 @@
 package com.dislab.leocai.spacesync.utils;
 
-import com.dislab.leocai.spacesync.draw.RealTimeChart;
-import com.dislab.leocai.spacesync.draw.RealTimeChartXYPlotImpl;
+import com.dislab.leocai.spacesync.ui.RealTimeChart;
+import com.dislab.leocai.spacesync.ui.RealTimeChartXYPlotImpl;
 
 public class ChartsUtils {
 

@@ -1,8 +1,9 @@
-package com.dislab.leocai.spacesync.draw;
+package com.dislab.leocai.spacesync.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -24,9 +25,17 @@ public class RealTimeChartXYPlotImpl extends ApplicationFrame implements RealTim
 	private static final long serialVersionUID = 9127338033397910052L;
 	List<XYSeries> seriesList;
 	private JFreeChart lineChart;
-	protected int cuKey;
+
+	protected long cuKey;
 	protected static final int MAX_X = 100;
 
+	public RealTimeChartXYPlotImpl(String title, String[] columnNames, boolean visible) {
+		super(title);
+		init(title, columnNames);
+		pack();
+		RefineryUtilities.centerFrameOnScreen(this);
+		setVisible(visible);
+	}
 
 	public RealTimeChartXYPlotImpl(String title, String[] columnNames) {
 		super(title);
@@ -44,7 +53,7 @@ public class RealTimeChartXYPlotImpl extends ApplicationFrame implements RealTim
 		XYPlot plot = lineChart.getXYPlot();
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setRange(-10, 10);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+		// chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 		setContentPane(chartPanel);
 	}
 
@@ -85,27 +94,45 @@ public class RealTimeChartXYPlotImpl extends ApplicationFrame implements RealTim
 	}
 
 	@Override
-	public void showStaticData(double[] data) {
-		clearData();
-		for (double d : data) {
-			addData(new double[] { d });
-		}
+	public void showStaticData(final double[] data) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				clearData();
+				for (double d : data) {
+					addData(new double[] { d });
+				}
+			}
+		});
 	}
 
 	@Override
-	public void showStaticData(double[][] data) {
-		clearData();
-		for (double[] d : data) {
-			addData(d);
-		}
+	public void showStaticData(final double[][] data) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				clearData();
+				for (double[] d : data) {
+					addData(d);
+				}
+			}
+		});
 	}
 
 	@Override
 	public void clearData() {
-		cuKey = 0;
-		for (XYSeries series : seriesList) {
-			series.clear();
+		synchronized (this) {
+			cuKey = 0;
+			for (XYSeries series : seriesList) {
+				series.clear();
+			}
 		}
+	}
+
+	public JFreeChart getLineChart() {
+		return lineChart;
+	}
+
+	public void setLineChart(JFreeChart lineChart) {
+		this.lineChart = lineChart;
 	}
 
 }

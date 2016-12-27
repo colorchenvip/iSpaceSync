@@ -1,12 +1,10 @@
-package com.dislab.leocai.spacesync.draw;
+package com.dislab.leocai.spacesync.ui;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.PolygonAttributes;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Matrix3d;
-import javax.vecmath.Vector3d;
-
 import com.sun.j3d.utils.geometry.Box;
 
 /**
@@ -18,6 +16,7 @@ public class PhoneDisplayerPCImpl implements PhoneDisplayer {
 
 	private float scale = 1;
 	private TransformGroup tg;
+	private WorldView worldView;
 
 	public PhoneDisplayerPCImpl() {
 		initView();
@@ -29,7 +28,7 @@ public class PhoneDisplayerPCImpl implements PhoneDisplayer {
 		appearance.setPolygonAttributes(
 				new PolygonAttributes(PolygonAttributes.POLYGON_LINE, PolygonAttributes.CULL_BACK, 0.0f));
 		Box sphere = new Box(0.25f * scale, 0.5f * scale, 0.03f * scale, appearance);
-		WorldView worldView = new WorldView();
+		worldView = new WorldView();
 		tg = new TransformGroup();
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		tg.addChild(sphere);
@@ -67,5 +66,15 @@ public class PhoneDisplayerPCImpl implements PhoneDisplayer {
 
 		tg.setTransform(transform3);
 	}
+
+	public WorldView getWorldView() {
+		return worldView;
+	}
+
+	public void setWorldView(WorldView worldView) {
+		this.worldView = worldView;
+	}
+	
+	
 
 }

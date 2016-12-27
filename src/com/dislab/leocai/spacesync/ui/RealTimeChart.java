@@ -1,4 +1,4 @@
-package com.dislab.leocai.spacesync.draw;
+package com.dislab.leocai.spacesync.ui;
 
 /**
  * 实时图表显示

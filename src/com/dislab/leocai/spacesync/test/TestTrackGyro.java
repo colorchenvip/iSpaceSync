@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayer;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.transformation.CoordinateTracker;
 import com.dislab.leocai.spacesync.transformation.GyroMatrixTracker;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayer;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.utils.DataLoadUtils;
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
 import com.dislab.leocai.spacesync.utils.PlotUtils;

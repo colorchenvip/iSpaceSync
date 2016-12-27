@@ -13,7 +13,7 @@ public class SpaceSyncConfig {
 	/**
 	 * 判断同步的阈值
 	 */
-	public static final double SYNC_THRESHOLD = 4;
+	public static final double SYNC_THRESHOLD = 1.5;
 	
 	/**
 	 * 接收数据后需要筛选的id值

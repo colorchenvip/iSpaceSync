@@ -12,11 +12,9 @@ import com.dislab.leocai.spacesync.connection.model.ClientData;
 import com.dislab.leocai.spacesync.utils.DataUtils;
 import com.dislab.leocai.spacesync.utils.SpaceSyncConfig;
 
-
 /**
- * 数据接收线程
- * 一个客户端对应一个
- * 接收数据后通知观察者
+ * 数据接收线程 一个客户端对应一个 接收数据后通知观察者
+ * 
  * @author leocai
  *
  */
@@ -52,7 +50,7 @@ public class DataReceiveThread extends Observable implements Runnable {
 					setChanged();
 					notifyObservers(new ClientData(clientId, client, data));
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.out.println("Miss a sample!");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

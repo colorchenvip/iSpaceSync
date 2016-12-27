@@ -1,11 +1,12 @@
-package com.dislab.leocai.spacesync.draw;
+package com.dislab.leocai.spacesync.ui;
 
-import java.util.Scanner;
+import java.awt.GraphicsConfiguration;
 
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Canvas3D;
 import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.Group;
+import javax.swing.JFrame;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
@@ -22,9 +23,12 @@ public class WorldView {
 
 	private BranchGroup group;
 	private SimpleUniverse universe;
+	private Canvas3D canvas;
 
 	public WorldView() {
-		universe = new SimpleUniverse();
+		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+		canvas = new Canvas3D(config);
+		universe = new SimpleUniverse(canvas);
 		group = new BranchGroup();
 	}
 
@@ -41,6 +45,10 @@ public class WorldView {
 
 	public BranchGroup getGroup() {
 		return group;
+	}
+
+	public SimpleUniverse getUniverse() {
+		return universe;
 	}
 
 }

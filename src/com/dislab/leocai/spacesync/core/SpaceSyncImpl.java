@@ -6,12 +6,12 @@ import java.util.List;
 import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 import com.dislab.leocai.spacesync.core.model.TrackingResults;
-import com.dislab.leocai.spacesync.draw.RealTimeChart;
-import com.dislab.leocai.spacesync.draw.RealTimeChartMultiClient;
-import com.dislab.leocai.spacesync.draw.RealTimeChartMultiClientImpl;
-import com.dislab.leocai.spacesync.draw.RealTimeChartXYPlotImpl;
 import com.dislab.leocai.spacesync.transformation.CoordinateTracker;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
+import com.dislab.leocai.spacesync.ui.RealTimeChart;
+import com.dislab.leocai.spacesync.ui.RealTimeChartMultiClient;
+import com.dislab.leocai.spacesync.ui.RealTimeChartMultiClientImpl;
+import com.dislab.leocai.spacesync.ui.RealTimeChartXYPlotImpl;
 import com.dislab.leocai.spacesync.utils.CutUtils;
 import com.dislab.leocai.spacesync.utils.DataUtils;
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
@@ -60,10 +60,10 @@ public class SpaceSyncImpl implements SpaceSync {
 		double E_hori_fi_y = mean(acc_hori_fi_y);
 		double E_hori_fi_z = mean(acc_hori_fi_z);
 
-		double[][] global_acc = sensorData.getGlobalMagAcc();
+		sensorData.getGlobalMagAcc();
 		double[][] computed_acc = sensorData.computeGlobalByMag();
-		double[] lacc_g = MatrixUtils.selectColumn(accs, 1);
-		double[] gacc_g = MatrixUtils.selectColumn(computed_acc, 1);
+		MatrixUtils.selectColumn(accs, 1);
+		MatrixUtils.selectColumn(computed_acc, 1);
 		// PlotUtils.plotCompareData(MatrixUtils.getColumn(accs, 1),
 		// MatrixUtils.getColumn(computed_acc, 2));
 		PlotUtils.plotData(sensorData.getMagnet());
@@ -72,32 +72,12 @@ public class SpaceSyncImpl implements SpaceSync {
 		// PlotUtils.plotCompareData( MatrixUtils.getColumn(accs, 1),
 		// MatrixUtils.getColumn(computed_acc, 1));
 
-		// PlotUtils.plotCompareData(global_acc, computed_acc);
-		// PlotUtils.plotCompareData(global_acc, computed_acc);
-		double[][] init_mag_global_matrix_g2b = sensorData.getInitGlobalMatrix_G2B();
+		sensorData.getInitGlobalMatrix_G2B();
 
 		// checkTrackedAcc(tracked_acc, global_acc, init_mag_global_matrix_g2b);
 		// checkHoriAcc(horizental_acc, global_acc, init_mag_global_matrix_g2b);
 
 		return checkResult(sensorData, gravity_vector, E_hori_fi_x, E_hori_fi_y, E_hori_fi_z);
-	}
-
-	private void checkTrackedAcc(double[][] tracked_acc, double[][] global_acc, double[][] init_global_matrix_g2b) {
-		double tracked_global_acc[][] = new double[tracked_acc.length][tracked_acc[0].length];
-		for (int i = 0; i < tracked_acc.length; i++) {
-			tracked_global_acc[i] = RotationUtils.getGlobalData(tracked_acc[i],
-					MatrixUtils.T(init_global_matrix_g2b));
-		}
-		PlotUtils.plotCompareData(tracked_acc, global_acc);
-	}
-
-	private void checkHoriAcc(double[][] horizental_acc, double[][] global_acc, double[][] init_global_matrix_g2b) {
-		double hori_global_acc[][] = new double[horizental_acc.length][horizental_acc[0].length];
-		for (int i = 0; i < horizental_acc.length; i++) {
-			hori_global_acc[i] = RotationUtils.getGlobalData(horizental_acc[i],
-					MatrixUtils.T(init_global_matrix_g2b));
-		}
-		PlotUtils.plotCompareData(hori_global_acc, global_acc);
 	}
 
 	private double checkResult(SensorDataSequnce sensorData, double[] gravity_vector, double E_hori_fi_x,
@@ -195,10 +175,6 @@ public class SpaceSyncImpl implements SpaceSync {
 
 	{
 		chart_fc.setRange(-10, 10);
-	}
-
-	private void plot(double[] selected_Fc) {
-		chart_fc.showStaticData(selected_Fc);
 	}
 
 	private List<Integer> selectIndexesByFc(double[] fc) {

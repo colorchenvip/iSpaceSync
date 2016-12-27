@@ -1,14 +1,10 @@
 package com.dislab.leocai.spacesync.utils;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.util.ArrayList;
-
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 
 

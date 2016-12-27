@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -16,6 +17,7 @@ import java.util.Observer;
 
 import com.dislab.leocai.spacesync.connection.model.ClientData;
 import com.dislab.leocai.spacesync.connection.model.SingleMultiClientData;
+import com.dislab.leocai.spacesync.utils.NetworkUtils;
 
 
 /**
@@ -90,7 +92,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	@Override
 	public String getAddress() {
 		try {
-			return InetAddress.getLocalHost().getHostAddress();
+			return NetworkUtils.getLocalHostLANAddress().getHostAddress();
 		} catch (UnknownHostException e) {
 			return "error ip";
 		}

@@ -4,11 +4,11 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.dislab.leocai.spacesync.core.model.SingleSensorData;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayer;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
 import com.dislab.leocai.spacesync.utils.RotationUtils;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayer;
 
 public class ObserverGyrGaccTrackerSingleClient implements Observer {
 

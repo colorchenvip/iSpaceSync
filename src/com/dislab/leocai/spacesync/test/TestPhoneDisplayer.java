@@ -3,10 +3,10 @@ package com.dislab.leocai.spacesync.test;
 import java.io.IOException;
 
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayer;
-import com.dislab.leocai.spacesync.draw.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.transformation.CoordinateTracker;
 import com.dislab.leocai.spacesync.transformation.DealWithRotationMatrix_B2G;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayer;
+import com.dislab.leocai.spacesync.ui.PhoneDisplayerPCImpl;
 import com.dislab.leocai.spacesync.utils.DataLoadUtils;
 
 
