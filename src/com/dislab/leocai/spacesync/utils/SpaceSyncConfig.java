@@ -9,11 +9,11 @@ public class SpaceSyncConfig {
 	/**
 	 * 缓冲区长度
 	 */
-	public static final int BUFFER_SIZE = 100;
+	public static  int BUFFER_SIZE = 20;
 	/**
 	 * 判断同步的阈值
 	 */
-	public static final double SYNC_THRESHOLD = 1.5;
+	public static  double SYNC_THRESHOLD = 2;
 	
 	/**
 	 * 接收数据后需要筛选的id值

@@ -37,7 +37,7 @@ public class DataServerSingleClientImpl extends Observable implements DataServer
 	public void startServer() throws IOException {
 		serverSocket = new ServerSocket(PORT);
 		serverSocket.setReuseAddress(true);
-		System.out.println(getAddress() + ":" + PORT);
+//		System.out.println(getAddress() + ":" + PORT);
 		sockect = serverSocket.accept();
 		out = sockect.getOutputStream();
 		in = sockect.getInputStream();
@@ -87,6 +87,12 @@ public class DataServerSingleClientImpl extends Observable implements DataServer
 	@Override
 	public void addDataListener(Observer dataListener) {
 		addObserver(dataListener);
+	}
+
+	@Override
+	public void setOnConnectionListener(OnConnectedListener onConnectedListener) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

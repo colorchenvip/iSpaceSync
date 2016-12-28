@@ -7,6 +7,7 @@ import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
+import com.dislab.leocai.spacesync.utils.SpaceSyncConfig;
 import com.dislab.leocai.spacesync.utils.VectorUtils;
 
 public class DirectionEstimatorImpl implements DirectionEstimator {
@@ -35,13 +36,15 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 			double[][] tracked_hori_lacc = MatrixUtils.copyAndSetColumn(tracked_lacc, 2, 0);// project
 																							// Horizental
 
-			consistantLinearAccListener.dealWithClientGlobalAcc(clientId, tracked_hori_lacc);
+			if (consistantLinearAccListener != null)
+				consistantLinearAccListener.dealWithClientGlobalAcc(clientId, tracked_hori_lacc);
 			tracked_hori_lacc_multi[clientId] = tracked_hori_lacc;
 		}
 
 		double[] Fc = consistentExtraction
 				.extractConsistentData(MatrixUtils.combineMultiClientData(tracked_hori_lacc_multi));
-		globalLinearAccListener.dealWithConsistant(Fc);
+		if (globalLinearAccListener != null)
+			globalLinearAccListener.dealWithConsistant(Fc);
 		DirectionEstimateResults syncResult = getEstimateResults(tracked_hori_lacc_multi, Fc);
 		return syncResult;
 	}
@@ -64,7 +67,7 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	private List<Integer> selectIndexesByFc(double[] fc) {
 		List<Integer> selectedRow = new ArrayList<>(fc.length);
 		for (int i = 0; i < fc.length; i++) {
-			if (fc[i] >= 0.5) {
+			if (fc[i] >= SpaceSyncConfig.SYNC_THRESHOLD) {
 				selectedRow.add(i);
 			}
 		}

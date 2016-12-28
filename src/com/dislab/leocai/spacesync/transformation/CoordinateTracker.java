@@ -5,6 +5,7 @@ import com.dislab.leocai.spacesync.utils.RotationUtils;
 
 @Deprecated
 public class CoordinateTracker {
+	
 
 	GyroMatrixTracker matrixUpdate = new GyroMatrixTracker();
 

@@ -46,6 +46,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	 * 收集多客户端的数据
 	 */
 	SingleMultiClientData singleMultiClientData;
+	private OnConnectedListener connectedListener;
 
 	@Override
 	public void startServer() throws IOException {
@@ -69,7 +70,8 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 						receiveThreadMap.put(hostAddress, clientThread);
 						clients.add(hostAddress);
 						clientThread.addObserver(DataServerMultiClient.this);
-						System.out.println(hostAddress + " connected");
+//						System.out.println(hostAddress + " connected");
+						connectedListener.newClientConnected(hostAddress);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -129,6 +131,12 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 
 	public int getClientsNum() {
 		return clients.size();
+	}
+
+	@Override
+	public void setOnConnectionListener(OnConnectedListener onConnectedListener) {
+		this.connectedListener = onConnectedListener;
+		
 	}
 
 }
