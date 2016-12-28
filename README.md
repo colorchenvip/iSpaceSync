@@ -1,9 +1,13 @@
-# iSpaceSync
-项目简介
-==
-该项目的主要目的是在不使用磁力计的情况下，利用一个一致的合力对多个传感器设备进行坐标系的同步。这个项目用于导出一个jar包，供其它应用使用。
-使用方式
-==
+iSpaceSync
+===
+# 项目简介
+该项目的主要目的是在不使用磁力计的情况下，利用一个一致的合力对多个传感器设备进行坐标系的同步。这个项目用于导出一个jar包，供其它应用使用。<br>
+##项目包含以下内容：
+* 一些用于旋转矩阵运算的工具类
+* 一些常用的坐标系转换函数
+* 传感器客户端与服务处理端的数据通信与传输
+
+#使用方式
 demo可以参考[PC段](https://github.com/LeoCai/SpaceSync-PC-Demo)和[Androi端](https://github.com/LeoCai/SpaceSync-Android-Demo)的两个Demo项目
 ```java
 DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();//构造服务端实例
