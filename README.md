@@ -14,7 +14,7 @@ iSpaceSync
 
 ...
 #使用方式
-demo可以参考[PC段](https://github.com/LeoCai/SpaceSync-PC-Demo)和[Androi端](https://github.com/LeoCai/SpaceSync-Android-Demo)的两个Demo项目
+demo可以参考[PC端](https://github.com/LeoCai/SpaceSync-PC-Demo)和[Androi端](https://github.com/LeoCai/SpaceSync-Android-Demo)的两个Demo项目
 ```java
 //构造服务端实例
 DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
