@@ -48,3 +48,4 @@ try {
 }
 ```
 #主要函数介绍
+[doc](./doc/index.html)
