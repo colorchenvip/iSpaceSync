@@ -8,6 +8,10 @@ iSpaceSync
 * 传感器客户端与服务处理端的数据通信与传输
 
 #项目配置
+* pca_transform-1.0.2.jar
+* jama-1.0.2.jar
+* spacesyn.jar
+
 ...
 #使用方式
 demo可以参考[PC段](https://github.com/LeoCai/SpaceSync-PC-Demo)和[Androi端](https://github.com/LeoCai/SpaceSync-Android-Demo)的两个Demo项目
