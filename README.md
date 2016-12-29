@@ -7,14 +7,18 @@ iSpaceSync
 * 一些常用的坐标系转换函数
 * 传感器客户端与服务处理端的数据通信与传输
 
+#项目配置
+...
 #使用方式
 demo可以参考[PC段](https://github.com/LeoCai/SpaceSync-PC-Demo)和[Androi端](https://github.com/LeoCai/SpaceSync-Android-Demo)的两个Demo项目
 ```java
-DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();//构造服务端实例
+//构造服务端实例
+DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
 
 //等待传感器设备连接完后构造算法与显示
 int clientsNum = dataServerMultiClient.getClientsNum();
-SpaceSyncPCFrameDataListener frameDataListener = new SpaceSyncPCFrameDataListener("SPACE SYNC PLOT",　clientsNum);
+
+//传感器姿态追踪回调函数
 TrackingCallBack[] trackingCallBacks = new TrackingCallBack[clientsNum];
 for (int i = 0; i < clientsNum; i++) {
   PhoneDisplayerPCImpl pcImpl = new PhoneDisplayerPCImpl();
@@ -22,13 +26,16 @@ for (int i = 0; i < clientsNum; i++) {
   trackingCallBacks[i] = new PhoneViewCallBack(pcImpl);
 }
 
+//算法中间结果监听
+SpaceSyncPCFrameDataListener frameDataListener = new SpaceSyncPCFrameDataListener("SPACE SYNC PLOT",　clientsNum);
 //此处获得一个默认的算法模块
 SpaceSync spaceSync = SpaceSyncFactory.getDefaultSpaceSync(clientsNum, trackingCallBacks, frameDataListener, frameDataListener);
-//注册数据监听
+
+//向服务器注册算法模块进行监听
 Observer spaceSyncOb = new ObserverSpaceSyncMultiClient(clientsNum, spaceSync);
 dataServerMultiClient.addDataListener(spaceSyncOb);
 
-//开始监听数据
+//服务器开始监听数据
 log("Ready to receive data!");
 try {
   dataServerMultiClient.receivedData();
@@ -36,3 +43,4 @@ try {
   e1.printStackTrace();
 }
 ```
+#主要函数介绍
