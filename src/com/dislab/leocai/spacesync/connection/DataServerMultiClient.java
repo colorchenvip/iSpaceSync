@@ -17,7 +17,6 @@ import com.dislab.leocai.spacesync.connection.model.ClientData;
 import com.dislab.leocai.spacesync.connection.model.SingleMultiClientData;
 import com.dislab.leocai.spacesync.utils.NetworkUtils;
 
-
 /**
  * 多客户端的服务端
  * 
@@ -40,7 +39,6 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	private Map<String, DataReceiveThread> receiveThreadMap = new HashMap<>();
 	private List<Observer> observerList = new ArrayList<>();
 
-	
 	private volatile boolean closed;
 	/**
 	 * 收集多客户端的数据
@@ -70,8 +68,9 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 						receiveThreadMap.put(hostAddress, clientThread);
 						clients.add(hostAddress);
 						clientThread.addObserver(DataServerMultiClient.this);
-//						System.out.println(hostAddress + " connected");
-						connectedListener.newClientConnected(hostAddress);
+						// System.out.println(hostAddress + " connected");
+						if (connectedListener != null)
+							connectedListener.newClientConnected(hostAddress);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -136,7 +135,7 @@ public class DataServerMultiClient extends Observable implements DataServer, Obs
 	@Override
 	public void setOnConnectionListener(OnConnectedListener onConnectedListener) {
 		this.connectedListener = onConnectedListener;
-		
+
 	}
 
 }

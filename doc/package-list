@@ -1,0 +1,9 @@
+com.dislab.leocai.spacesync.connection
+com.dislab.leocai.spacesync.connection.datalistteners
+com.dislab.leocai.spacesync.connection.model
+com.dislab.leocai.spacesync.core
+com.dislab.leocai.spacesync.core.model
+com.dislab.leocai.spacesync.test
+com.dislab.leocai.spacesync.transformation
+com.dislab.leocai.spacesync.ui
+com.dislab.leocai.spacesync.utils

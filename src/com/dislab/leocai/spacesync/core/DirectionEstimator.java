@@ -16,12 +16,12 @@ public interface DirectionEstimator {
 	 * 添加数据回调函数
 	 * @param globalLinearAccListener
 	 */
-	void addGlobalLinearAccListener(GlobalLinearAccListener globalLinearAccListener);
+	void addGlobalLinearAccListener(ConsistantAccListener globalLinearAccListener);
 
 	/**
 	 * 添加数据回调函数
 	 * @param clobalLinearAccListener
 	 */
-	void addConsistantAccListener(ConsistantAccListener consistantAccListener);
+	void addConsistantAccListener(LinearAccListener consistantAccListener);
 
 }
