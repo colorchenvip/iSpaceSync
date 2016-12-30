@@ -5,15 +5,22 @@ iSpaceSync
 ##项目包含以下内容：
 * 一些用于旋转矩阵运算的工具类
 * 一些常用的坐标系转换函数
-* 传感器客户端与服务处理端的数据通信与传输
+* 传感器客户端与服务处理端的数据通信与传输的框架
 
-#项目配置
+# 待解决问题
+* 发送接收数据丢包较多
+* 手机按y轴竖立起来效果较差
+* 算法性能优化
+* 平滑处理
+* 重连处理
+
+# 项目配置
 * pca_transform-1.0.2.jar
 * jama-1.0.2.jar
 * spacesyn.jar
 
 ...
-#使用方式
+# 使用方式
 demo可以参考[PC端](https://github.com/LeoCai/SpaceSync-PC-Demo)和[Androi端](https://github.com/LeoCai/SpaceSync-Android-Demo)的两个Demo项目
 ```java
 //构造服务端实例
