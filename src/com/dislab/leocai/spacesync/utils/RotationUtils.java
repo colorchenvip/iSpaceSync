@@ -2,6 +2,11 @@ package com.dislab.leocai.spacesync.utils;
 
 import java.util.Arrays;
 
+/**
+ * 旋转工具类
+ * @author leocai
+ *
+ */
 public class RotationUtils {
 	/**
 	 * 四元数转旋转矩阵
