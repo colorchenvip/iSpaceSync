@@ -17,6 +17,7 @@ iSpaceSync
 * 重连处理
 
 # 项目配置
+jar包放在lib文件夹下
 * pca_transform-1.0.2.jar
 * jama-1.0.2.jar
 * spacesyn.jar
