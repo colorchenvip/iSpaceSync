@@ -85,7 +85,7 @@ try {
 #### 使用磁力计
 ```java
 double[][] rmt_g2b = RotationUtils.getRotationMatrixG2BBy2Vectors(grivity, magnetic);
-double[] global_data = getGlobalData(localData, rmt_g2b);
+double[] global_data = RotationUtils.getGlobalData(localData, rmt_g2b);
 ```
 #### 不使用磁力计
 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
