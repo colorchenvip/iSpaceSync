@@ -36,8 +36,11 @@ public class RotationUtils {
 	/**
 	 * 利用旋转矩阵获取全局数据
 	 * @param localData
+	 * 局部数据
 	 * @param rotationMatrix_b2g
+	 * 旋转矩阵（body to global）
 	 * @return
+	 * 全局数据
 	 */
 	public static double[] getGlobalData(double[] localData, double[][] rotationMatrix_b2g) {
 		double[][] global_acc = MatrixUtils.multiply(rotationMatrix_b2g, MatrixUtils.convertVectorToMatrix(localData));
@@ -46,17 +49,19 @@ public class RotationUtils {
 	
 	/**
 	 * 根据两个向量获得旋转矩阵
-	 * @param v1
-	 * @param v2
+	 * @param v1_g_in_b
+	 * 全局一个坐标轴在局部坐标系的坐标
+	 * @param v2_g_in_b
+	 * 全局另一个坐标轴在局部坐标系的坐标
 	 * @return
 	 */
-	public static double[][] getRotationMatrixG2BBy2Vectors(double[] v1, double[] v2) {
-		double Ex = v2[0];
-		double Ey = v2[1];
-		double Ez = v2[2];
-		double Ax = v1[0];
-		double Ay = v1[1];
-		double Az = v1[2];
+	public static double[][] getRotationMatrixG2BBy2Vectors(double[] v1_g_in_b, double[] v2_g_in_b) {
+		double Ex = v2_g_in_b[0];
+		double Ey = v2_g_in_b[1];
+		double Ez = v2_g_in_b[2];
+		double Ax = v1_g_in_b[0];
+		double Ay = v1_g_in_b[1];
+		double Az = v1_g_in_b[2];
 		double Hx = Ey * Az - Ez * Ay;
 		double Hy = Ez * Ax - Ex * Az;
 		double Hz = Ex * Ay - Ey * Ax;

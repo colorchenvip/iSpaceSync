@@ -16,6 +16,7 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	private int clientsNum;
 	private ConsistentExtraction consistentExtraction;
 	private GyrGaccMatrixTracker matrixTracker;
+
 	private ConsistantAccListener consistantAccListener;
 	private LinearAccListener linearAccListener;
 
@@ -31,18 +32,20 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 		double[][][] tracked_hori_lacc_multi = new double[clientsNum][][];
 
 		double[][][] rtm_b2gs = new double[clientsNum][][];
+
 		for (int clientId = 0; clientId < clientsNum; clientId++) {
 			SensorDataSequnce clientSensorDataList = buffer.getClientSensorData(clientId);
-
-			double[][] tracked_lacc = track(clientSensorDataList, new double[] { 0, 1, 0 });
+			double[] initXAxis = new double[] { 1, 1, 0 };
+			double[][] tracked_lacc = track(clientSensorDataList, initXAxis);
 			double[][] tracked_hori_lacc = MatrixUtils.copyAndSetColumn(tracked_lacc, 2, 0);// project
 																							// Horizental
 			if (linearAccListener != null)
 				linearAccListener.dealWithClientGlobalAcc(clientId, tracked_hori_lacc);
-			rtm_b2gs[clientId] = RotationUtils.getRotationMatrixG2BBy2Vectors(clientSensorDataList.getGravityAccs()[0], new double[]{0, 1, 0});
+			rtm_b2gs[clientId] = RotationUtils.getRotationMatrixG2BBy2Vectors(clientSensorDataList.getGravityAccs()[0],
+					initXAxis);
 			tracked_hori_lacc_multi[clientId] = tracked_hori_lacc;
 		}
-		
+
 		double[] Fc = consistentExtraction
 				.extractConsistentData(MatrixUtils.combineMultiClientData(tracked_hori_lacc_multi));
 		if (consistantAccListener != null)
@@ -51,6 +54,14 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 		return syncResult;
 	}
 
+	/**
+	 * 获得估计结果
+	 * 
+	 * @param tracked_hori_lacc_multi
+	 * @param Fc
+	 * @param rtm_b2g
+	 * @return
+	 */
 	private DirectionEstimateResults getEstimateResults(double[][][] tracked_hori_lacc_multi, double[] Fc,
 			double[][][] rtm_b2g) {
 		List<Integer> selectedRows = selectIndexesByFc(Fc);
@@ -58,7 +69,7 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 		for (int clientId = 0; clientId < clientsNum; clientId++) {
 			double[][] selected_Fi_multi_data = MatrixUtils.selectRows(tracked_hori_lacc_multi[clientId], selectedRows);
 			double syncRs[] = new double[3];
-			
+
 			for (int j = 0; j < 3; j++) {
 				double[] fi_i = MatrixUtils.selectColumn(selected_Fi_multi_data, j);
 				syncRs[j] = VectorUtils.mean(fi_i);

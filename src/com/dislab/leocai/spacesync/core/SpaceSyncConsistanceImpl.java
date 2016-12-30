@@ -5,7 +5,6 @@ import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 import com.dislab.leocai.spacesync.core.model.TrackingResults;
 import com.dislab.leocai.spacesync.utils.DataUtils;
 import com.dislab.leocai.spacesync.utils.SpaceSyncConfig;
-import com.dislab.leocai.spacesync.utils.VectorUtils;
 
 public class SpaceSyncConsistanceImpl implements SpaceSync {
 
@@ -42,8 +41,11 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 			SensorDataSequnce sensorData = buffer.getClientSensorData(i);
 			double[][] laccs = sensorData.getLinearAccs();
 			double[] rlaccs = DataUtils.resultantData(laccs);
-			if (VectorUtils.mean(rlaccs) < threshold)
-				return false;
+			int count = 0;
+			for(double rd: rlaccs){
+				if(rd >=threshold) count++;
+			}
+			if(1.0*count/rlaccs.length < SpaceSyncConfig.SYNC_THRESHOLD_RATE) return false;
 		}
 		return true;
 	}

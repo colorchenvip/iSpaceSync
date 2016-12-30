@@ -35,6 +35,9 @@ public class DataReceiveThread extends Observable implements Runnable {
 		this.in = in;
 	}
 
+	int total = 0;
+	int miss = 0;
+
 	@Override
 	public void run() {
 		stop = false;
@@ -45,12 +48,15 @@ public class DataReceiveThread extends Observable implements Runnable {
 				if (newLine == null)
 					continue;
 				double data[];
+				total++;
 				try {
 					data = DataUtils.parseData(newLine, SpaceSyncConfig.RECEIVED_SELECTED_INDEXES);
 					setChanged();
 					notifyObservers(new ClientData(clientId, client, data));
 				} catch (Exception e) {
 					System.out.println("Miss a sample!");
+					miss++;
+					System.out.println(1.0 * miss / total);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

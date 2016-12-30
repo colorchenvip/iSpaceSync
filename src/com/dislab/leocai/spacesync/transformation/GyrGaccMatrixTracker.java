@@ -11,9 +11,16 @@ import com.dislab.leocai.spacesync.utils.VectorUtils;
  */
 public class GyrGaccMatrixTracker {
 
-	private double[] global_x = new double[] { 0, 1, 0 };
+	private double[] global_x = new double[] { 1, 0, 0 };
 	boolean first = true;
 
+	/**
+	 * 姿态跟踪，返回瞬时的旋转矩阵
+	 * @param gyr
+	 * @param grivity
+	 * @param dt
+	 * @return
+	 */
 	public double[][] track_b2g(double[] gyr, double[] grivity, double dt) {
 		if (first) {
 			double[][] rmt_g2b = RotationUtils.getRotationMatrixG2BBy2Vectors(grivity, global_x);
@@ -35,6 +42,15 @@ public class GyrGaccMatrixTracker {
 		this.global_x = global_x;
 	}
 
+	/**
+	 * 跟踪旋转矩阵，右乘获得全局加速度
+	 * @param accs
+	 * @param gyrs
+	 * @param gravitys
+	 * @param dts
+	 * @param init_x_axis
+	 * @return
+	 */
 	public double[][] trackGlobalAcc(double[][] accs, double[][] gyrs, double[][] gravitys, double[] dts,
 			double[] init_x_axis) {
 		setInitXAxis(init_x_axis);
@@ -50,6 +66,13 @@ public class GyrGaccMatrixTracker {
 		return newAccs;
 	}
 
+	/**
+	 * 
+	 * @param trackingCallBack
+	 * @param gyrs
+	 * @param gravitys
+	 * @param dts
+	 */
 	public void track_b2g(TrackingCallBack trackingCallBack, double[][] gyrs, double[][] gravitys, double[] dts) {
 		for (int i = 0; i < gyrs.length; i++) {
 			double[] gyr = gyrs[i];
@@ -60,6 +83,13 @@ public class GyrGaccMatrixTracker {
 		}
 	}
 
+	/**
+	 * 
+	 * @param trackingCallBack
+	 * @param gyr
+	 * @param grivity
+	 * @param dt
+	 */
 	public void track_b2g(TrackingCallBack trackingCallBack, double[] gyr, double[] grivity, double dt) {
 		double[][] rtm_b2g = track_b2g(gyr, grivity, dt);
 		trackingCallBack.dealWithRotationMatrix_b2g(rtm_b2g);

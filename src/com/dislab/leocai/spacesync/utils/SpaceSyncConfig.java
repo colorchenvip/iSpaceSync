@@ -9,16 +9,22 @@ public class SpaceSyncConfig {
 	/**
 	 * 缓冲区长度
 	 */
-	public static  int BUFFER_SIZE = 20;
+	public static  int BUFFER_SIZE = 50;
 	/**
 	 * 判断同步的阈值
 	 */
-	public static  double SYNC_THRESHOLD = 3;
+	public static  double SYNC_THRESHOLD = 2;
+	
+	/**
+	 * 超过阈值样本的百分比
+	 */
+	public static final double SYNC_THRESHOLD_RATE = 0.6;
+
 	
 	/**
 	 * 筛选FC的阈值
 	 */
-	public static  double SELECTED_FC_THRESHOLD = 0.2;
+	public static  double SELECTED_FC_THRESHOLD = 0.1;
 
 	
 	/**
