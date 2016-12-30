@@ -71,3 +71,12 @@ try {
 * 姿态跟踪 [OreintationTrackerImpl.java](./src/com/dislab/leocai/spacesync/core/OreintationTrackerImpl.java)
 * 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
 * 旋转工具 [RotationUtils.java](./src/com/dislab/leocai/spacesync/utils/RotationUtils.java)
+
+### 传感器数据全局转换
+#### 使用磁力计
+```java
+double[][] rmt_g2b = RotationUtils.getRotationMatrixG2BBy2Vectors(grivity, magnetic);
+double[] global_data = getGlobalData(localData, rmt_g2b);
+```
+#### 不使用磁力计
+姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
