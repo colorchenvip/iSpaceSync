@@ -56,8 +56,16 @@ try {
   e1.printStackTrace();
 }
 ```
-#主要函数和接口介绍
+# 主要函数和接口介绍
 [doc](./doc/index.html)
+## 接口说明
+* 算法主接口 [SpaceSync.java](./src/com/dislab/leocai/spacesync/core/SpaceSync.java)
+* 方向估计 [DirectionEstimator.java](./src/com/dislab/leocai/spacesync/core/DirectionEstimator.java)
+* 姿态跟踪 [OreintationTracker.java](./src/com/dislab/leocai/spacesync/core/OreintationTracker.java)
+* 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
+* 旋转工具 [RotationUtils.java](./src/com/dislab/leocai/spacesync/utils/RotationUtils.java)
+
+## 接口实现
 * 算法主接口 [SpaceSyncConsistanceImpl.java](./src/com/dislab/leocai/spacesync/core/SpaceSyncConsistanceImpl.java)
 * 方向估计 [DirectionEstimatorImpl.java](./src/com/dislab/leocai/spacesync/core/DirectionEstimatorImpl.java)
 * 姿态跟踪 [OreintationTrackerImpl.java](./src/com/dislab/leocai/spacesync/core/OreintationTrackerImpl.java)
