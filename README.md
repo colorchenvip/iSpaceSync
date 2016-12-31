@@ -96,6 +96,7 @@ double[] global_data = RotationUtils.getGlobalData(localData, rmt_g2b);
 ## 接口说明
 * 服务端：[DataServer.java](./src/com/dislab/leocai/spacesync/connection/DataServer.java)
 * 客户端：[DataClient.java](./src/com/dislab/leocai/spacesync/connection/DataClient.java)
+
 ## 使用方式
 
 ```java
