@@ -7,6 +7,8 @@ iSpaceSync
 3. [项目配置](#项目配置)
 4. [使用方式](#使用方式)
 5. [主要函数和接口介绍](#主要函数和接口介绍)
+6. [传感器数据全局转换](#传感器数据全局转换)
+7. [传感器C-S架构传输框架](#传感器C-S架构传输框架)
 
 # 项目简介
 该项目的主要目的是在不使用磁力计的情况下，利用一个一致的合力对多个传感器设备进行坐标系的同步。这个项目用于导出一个jar包，供其它应用使用。<br>
@@ -81,19 +83,19 @@ try {
 * 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
 * 旋转工具 [RotationUtils.java](./src/com/dislab/leocai/spacesync/utils/RotationUtils.java)
 
-### 传感器数据全局转换
-#### 使用磁力计
+# 传感器数据全局转换
+## 使用磁力计
 ```java
 double[][] rmt_g2b = RotationUtils.getRotationMatrixG2BBy2Vectors(grivity, magnetic);
 double[] global_data = RotationUtils.getGlobalData(localData, rmt_g2b);
 ```
-#### 不使用磁力计
+## 不使用磁力计
 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
 
 # 传感器C-S架构传输框架
 ## 接口说明
-服务端：[DataServer.java](./src/com/dislab/leocai/spacesync/connection/DataServer.java)
-客户端：[DataClient.java](./src/com/dislab/leocai/spacesync/connection/DataClient.java)
+* 服务端：[DataServer.java](./src/com/dislab/leocai/spacesync/connection/DataServer.java)
+* 客户端：[DataClient.java](./src/com/dislab/leocai/spacesync/connection/DataClient.java)
 ## 使用方式
 
 ```java
