@@ -5,6 +5,8 @@ import com.dislab.leocai.spacesync.core.model.SingleSensorData;
 import com.dislab.leocai.spacesync.core.model.TrackingResults;
 import com.dislab.leocai.spacesync.transformation.GyrGaccMatrixTracker;
 import com.dislab.leocai.spacesync.transformation.TrackingCallBack;
+import com.dislab.leocai.spacesync.utils.MatrixUtils;
+import com.dislab.leocai.spacesync.utils.RotationUtils;
 
 public class OreintationTrackerImpl implements OreintationTracker {
 
@@ -27,10 +29,15 @@ public class OreintationTrackerImpl implements OreintationTracker {
 			xAxisMulti = directionEstimateResults.getClientsInitXAxis();
 		for (int i = 0; i < clientNum; i++) {
 			SingleSensorData sensorData = new SingleSensorData(buffer.getClientFirstData(i));
-			if (isSyncTime)
+			if (isSyncTime){
 				matrixTrackers[i].setInitXAxis(xAxisMulti[i]);
-			matrixTrackers[i].track_b2g(trackingCallBacks[i], sensorData.getGYR(), sensorData.getGrivity(),
-					sensorData.getDT());
+				double[][] rtm_b2g = MatrixUtils.T(RotationUtils.getRotationMatrixG2BBy2Vectors(sensorData.getGrivity(), xAxisMulti[i]));
+				MatrixUtils.printMatrix(rtm_b2g);
+				trackingCallBacks[i].dealWithRotationMatrix_b2g(rtm_b2g);
+			}
+			
+//			matrixTrackers[i].track_b2g(trackingCallBacks[i], sensorData.getGYR(), sensorData.getGrivity(),
+//					sensorData.getDT());
 		}
 		return null;
 	}

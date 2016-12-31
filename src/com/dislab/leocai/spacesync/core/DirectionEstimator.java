@@ -10,7 +10,14 @@ import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
  */
 public interface DirectionEstimator {
 
+	/**
+	 * 估计初始方向
+	 * @param buffer
+	 * @return
+	 */
 	DirectionEstimateResults estimate(MultiClientDataBuffer buffer);
+	
+
 
 	/**
 	 * 添加数据回调函数
@@ -23,5 +30,6 @@ public interface DirectionEstimator {
 	 * @param clobalLinearAccListener
 	 */
 	void addConsistantAccListener(LinearAccListener consistantAccListener);
+
 
 }

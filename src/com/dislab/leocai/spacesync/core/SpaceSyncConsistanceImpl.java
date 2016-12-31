@@ -10,6 +10,7 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 
 	DirectionEstimator directionEstimator;
 	private OreintationTracker oreintationTracker;
+	private DirectionListener directionListener;
 	private int clientsNum;
 	private long sampleCount;
 	private long preSampleCount = -SpaceSyncConfig.BUFFER_SIZE;
@@ -31,6 +32,8 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 			preSampleCount = sampleCount;
 		}
 		directions = directionEstimate(buffer);
+		if (directionListener != null)
+			directionListener.dealWithDirection(directions, isSyncTime);
 		oreintationTracking(buffer, directions, isSyncTime);
 	}
 
@@ -42,12 +45,19 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 			double[][] laccs = sensorData.getLinearAccs();
 			double[] rlaccs = DataUtils.resultantData(laccs);
 			int count = 0;
-			for(double rd: rlaccs){
-				if(rd >=threshold) count++;
+			for (double rd : rlaccs) {
+				if (rd >= threshold)
+					count++;
 			}
-			if(1.0*count/rlaccs.length < SpaceSyncConfig.SYNC_THRESHOLD_RATE) return false;
+			if (1.0 * count / rlaccs.length < SpaceSyncConfig.SYNC_THRESHOLD_RATE)
+				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void setDirectionListener(DirectionListener directionListener) {
+		this.directionListener = directionListener;
 	}
 
 	@Override

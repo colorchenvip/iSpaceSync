@@ -1,5 +1,7 @@
 package com.dislab.leocai.spacesync.transformation;
 
+import java.util.Arrays;
+
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
 import com.dislab.leocai.spacesync.utils.RotationUtils;
 import com.dislab.leocai.spacesync.utils.VectorUtils;
@@ -34,7 +36,6 @@ public class GyrGaccMatrixTracker {
 		global_x = MatrixUtils.convertMatrixToVector(next_global_mat_x);
 		double[][] rmt_g2b = RotationUtils.getRotationMatrixG2BBy2Vectors(grivity, global_x);
 		global_x = MatrixUtils.selectColumn(rmt_g2b, 1);
-		// System.out.println(Arrays.toString(global_x));
 		return MatrixUtils.T(rmt_g2b);
 	}
 

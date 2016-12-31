@@ -26,7 +26,6 @@ import com.dislab.leocai.spacesync.utils.SpaceSyncConfig;
  */
 public class DataServerSingleClientImpl extends Observable implements DataServer {
 
-	private static final int PORT = 10007;
 	private ServerSocket serverSocket;
 	private Socket sockect;
 	private OutputStream out;
@@ -35,7 +34,7 @@ public class DataServerSingleClientImpl extends Observable implements DataServer
 
 	@Override
 	public void startServer() throws IOException {
-		serverSocket = new ServerSocket(PORT);
+		serverSocket = new ServerSocket(SpaceSyncConfig.SERVER_PORT);
 		serverSocket.setReuseAddress(true);
 //		System.out.println(getAddress() + ":" + PORT);
 		sockect = serverSocket.accept();

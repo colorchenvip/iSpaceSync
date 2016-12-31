@@ -25,6 +25,7 @@ public interface SpaceSync {
 	 * @return
 	 */
 	DirectionEstimateResults directionEstimate(MultiClientDataBuffer dataBuffer);
+	
 
 	/**
 	 * 姿态跟着跟踪
@@ -43,4 +44,6 @@ public interface SpaceSync {
 	 */
 	void sync(MultiClientDataBuffer buffer);
 
+	void setDirectionListener(DirectionListener directionListener);
+	
 }

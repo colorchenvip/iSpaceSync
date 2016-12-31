@@ -1,5 +1,7 @@
 package com.dislab.leocai.spacesync.utils;
 
+import java.util.Arrays;
+
 /**
  * 向量工具类
  * 
@@ -10,6 +12,7 @@ public class VectorUtils {
 
 	/**
 	 * 计算向量夹角，返回度
+	 * 
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -23,6 +26,7 @@ public class VectorUtils {
 
 	/**
 	 * 计算向量点乘
+	 * 
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -37,6 +41,7 @@ public class VectorUtils {
 
 	/**
 	 * 计算向量数乘
+	 * 
 	 * @param vector
 	 * @param d
 	 * @return
@@ -51,6 +56,7 @@ public class VectorUtils {
 
 	/**
 	 * 计算向量长度
+	 * 
 	 * @param gv
 	 * @return
 	 */
@@ -64,6 +70,7 @@ public class VectorUtils {
 
 	/**
 	 * 向量叉乘
+	 * 
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -83,17 +90,19 @@ public class VectorUtils {
 
 	/**
 	 * 计算向量投影
+	 * 
 	 * @param vector
 	 * @param direction
 	 * @return
 	 */
 	public static double project(double[] vector, double[] direction) {
-		return dotMultiply(vector, direction)/ absVector(direction);
-		
+		return dotMultiply(vector, direction) / absVector(direction);
+
 	}
 
 	/**
 	 * 计算数据平均值
+	 * 
 	 * @param data
 	 * @return
 	 */
@@ -103,5 +112,19 @@ public class VectorUtils {
 			mean += d;
 		}
 		return mean / data.length;
+	}
+
+	/**
+	 * 单位向量
+	 * @param v
+	 * @return
+	 */
+	public static double[] unitVector(double[] v) {
+		double[] v2 = Arrays.copyOf(v, v.length);
+		double len = absVector(v2);
+		for (int i = 0; i < v2.length; i++) {
+			v2[i] /= len;
+		}
+		return v2;
 	}
 }

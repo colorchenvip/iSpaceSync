@@ -1,6 +1,16 @@
 package com.dislab.leocai.spacesync.utils;
 
+/**
+ * 全局算法配置
+ * @author leocai
+ *
+ */
 public class SpaceSyncConfig {
+	
+	/**
+	 * 服务器端口
+	 */
+	public static final int SERVER_PORT = 10007;
 
 	/**
 	 * 接收后单个样本的列长度

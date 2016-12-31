@@ -54,9 +54,9 @@ public class DataReceiveThread extends Observable implements Runnable {
 					setChanged();
 					notifyObservers(new ClientData(clientId, client, data));
 				} catch (Exception e) {
-					System.out.println("Miss a sample!");
+//					System.out.println("Miss a sample!");
 					miss++;
-					System.out.println(1.0 * miss / total);
+//					System.out.println(1.0 * miss / total);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

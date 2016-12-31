@@ -31,18 +31,21 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	public DirectionEstimateResults estimate(MultiClientDataBuffer buffer) {
 		double[][][] tracked_hori_lacc_multi = new double[clientsNum][][];
 
-		double[][][] rtm_b2gs = new double[clientsNum][][];
+		double[][][] rtm_g2bs = new double[clientsNum][][];
 
 		for (int clientId = 0; clientId < clientsNum; clientId++) {
 			SensorDataSequnce clientSensorDataList = buffer.getClientSensorData(clientId);
-			double[] initXAxis = new double[] { 1, 1, 0 };
+			double[] initXAxis = new double[] { 0, 1, 0 };
+			adjustInitXAxis(initXAxis, clientSensorDataList.getGravityAccs()[0][0]);
 			double[][] tracked_lacc = track(clientSensorDataList, initXAxis);
 			double[][] tracked_hori_lacc = MatrixUtils.copyAndSetColumn(tracked_lacc, 2, 0);// project
 																							// Horizental
 			if (linearAccListener != null)
 				linearAccListener.dealWithClientGlobalAcc(clientId, tracked_hori_lacc);
-			rtm_b2gs[clientId] = RotationUtils.getRotationMatrixG2BBy2Vectors(clientSensorDataList.getGravityAccs()[0],
+			rtm_g2bs[clientId] = RotationUtils.getRotationMatrixG2BBy2Vectors(clientSensorDataList.getGravityAccs()[0],
 					initXAxis);
+			System.out.println();
+			MatrixUtils.printMatrix(rtm_g2bs[clientId]);
 			tracked_hori_lacc_multi[clientId] = tracked_hori_lacc;
 		}
 
@@ -50,8 +53,21 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 				.extractConsistentData(MatrixUtils.combineMultiClientData(tracked_hori_lacc_multi));
 		if (consistantAccListener != null)
 			consistantAccListener.dealWithConsistant(Fc);
-		DirectionEstimateResults syncResult = getEstimateResults(tracked_hori_lacc_multi, Fc, rtm_b2gs);
+		DirectionEstimateResults syncResult = getEstimateResults(tracked_hori_lacc_multi, Fc, rtm_g2bs);
 		return syncResult;
+	}
+	
+	private void adjustInitXAxis(double[] initXAxis, double d) {
+		if(Math.abs(d)>=7){
+//			System.out.println("Y");
+			initXAxis[0] = 0;
+			initXAxis[1] = 1;
+		}else{
+//			System.out.println("X");
+			initXAxis[0] = 1;
+			initXAxis[1] = 0;
+		}
+		
 	}
 
 	/**
@@ -59,11 +75,11 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	 * 
 	 * @param tracked_hori_lacc_multi
 	 * @param Fc
-	 * @param rtm_b2g
+	 * @param rtm_g2b
 	 * @return
 	 */
 	private DirectionEstimateResults getEstimateResults(double[][][] tracked_hori_lacc_multi, double[] Fc,
-			double[][][] rtm_b2g) {
+			double[][][] rtm_g2b) {
 		List<Integer> selectedRows = selectIndexesByFc(Fc);
 		DirectionEstimateResults syncResult = new DirectionEstimateResults(clientsNum);
 		for (int clientId = 0; clientId < clientsNum; clientId++) {
@@ -74,7 +90,8 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 				double[] fi_i = MatrixUtils.selectColumn(selected_Fi_multi_data, j);
 				syncRs[j] = VectorUtils.mean(fi_i);
 			}
-			syncRs = RotationUtils.getGlobalData(syncRs, MatrixUtils.T(rtm_b2g[clientId]));
+			syncResult.setPre(clientId, syncRs);
+			syncRs = RotationUtils.getGlobalData(syncRs, rtm_g2b[clientId]);
 			syncResult.set(clientId, syncRs);
 		}
 		return syncResult;

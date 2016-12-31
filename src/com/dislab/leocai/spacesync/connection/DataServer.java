@@ -4,17 +4,29 @@ import java.io.IOException;
 import java.util.Observer;
 
 /**
- * 服务端
+ * 服务端接口
  * 
  * @author leocai
  *
  */
 public interface DataServer {
 
+	/**
+	 * 启动服务器，监听10007端口
+	 * @throws IOException
+	 */
 	void startServer() throws IOException;
 
+	/**
+	 * 关闭服务器
+	 * @throws IOException
+	 */
 	void closeServer() throws IOException;
 
+	/**
+	 * 获取服务器地址
+	 * @return
+	 */
 	String getAddress();
 
 	/**

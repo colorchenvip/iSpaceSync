@@ -4,17 +4,15 @@ import java.util.Arrays;
 
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 
-
 /**
  * 
- * @author leocai
- * 多客户端Sensor的数据缓冲区
+ * @author leocai 多客户端Sensor的数据缓冲区
  *
  */
 public class MultiClientDataBuffer {
 
 	/**
-	 * 三个维度分别代表：客户端　行　列
+	 * 三个维度分别代表：客户端 行 列
 	 */
 	double buffer[][][]; // client row column
 	int start;
@@ -28,6 +26,10 @@ public class MultiClientDataBuffer {
 		buffer = new double[clientsNum][size][];
 	}
 
+	/**
+	 * @param data_multiClient
+	 * 客户端　数据列　
+	 */
 	public void add(double[][] data_multiClient) {
 		if (end >= bufferSize) {
 			start++;
@@ -65,7 +67,7 @@ public class MultiClientDataBuffer {
 	}
 
 	public double[] getClientFirstData(int clientId) {
-		double[] d = buffer[clientId][start%bufferSize];
+		double[] d = buffer[clientId][start % bufferSize];
 		return Arrays.copyOf(d, d.length);
 	}
 
