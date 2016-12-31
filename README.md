@@ -99,6 +99,17 @@ double[] global_data = RotationUtils.getGlobalData(localData, rmt_g2b);
 
 ## 使用方式
 
+### 客户端
+```java
+DataClient dataClient = new DataClientImpl();
+try {
+    dataClient.connect(address,10007);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+dataClient.sendSample(info);
+```
+### 服务端
 ```java
 //新建服务器实例
 DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
