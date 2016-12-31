@@ -89,3 +89,33 @@ double[] global_data = RotationUtils.getGlobalData(localData, rmt_g2b);
 ```
 #### 不使用磁力计
 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
+
+# 传感器C-S架构传输框架
+## 接口说明
+服务端：[DataServer.java](./src/com/dislab/leocai/spacesync/connection/DataServer.java)
+客户端：[DataClient.java](./src/com/dislab/leocai/spacesync/connection/DataClient.java)
+## 使用方式
+
+```java
+//新建服务器实例
+DataServerMultiClient dataServerMultiClient = new DataServerMultiClient();
+//设置连接监听器
+dataServerMultiClient.setOnConnectionListener(new OnConnectedListener() {
+			@Override
+			public void newClientConnected(String hostAddress) {
+				log(hostAddress + "connected");
+			}
+		});
+//启动服务器
+dataServerMultiClient.startServer();
+Observer spaceSyncOb = new ObserverSpaceSyncMultiClient(clientsNum, spaceSync);
+//添加数据接收监听器
+dataServerMultiClient.addDataListener(spaceSyncOb);
+log("Ready to receive data!");
+//开始监听数据
+try {
+  dataServerMultiClient.receivedData();
+} catch (IOException e1) {
+  e1.printStackTrace();
+}
+```
