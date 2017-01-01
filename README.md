@@ -77,6 +77,8 @@ try {
 * 姿态跟踪 [GyrGaccMatrixTracker.java](./src/com/dislab/leocai/spacesync/transformation/GyrGaccMatrixTracker.java)
 * 旋转工具 [RotationUtils.java](./src/com/dislab/leocai/spacesync/utils/RotationUtils.java)
 
+## 数据结构
+* 多客户端传感器数据缓冲区[MultiClientDataBuffer.java](./src/com/dislab/leocai/spacesync/core/MultiClientDataBuffer.java)
 ## 接口实现
 * 算法主接口 [SpaceSyncConsistanceImpl.java](./src/com/dislab/leocai/spacesync/core/SpaceSyncConsistanceImpl.java)
 * 方向估计 [DirectionEstimatorImpl.java](./src/com/dislab/leocai/spacesync/core/DirectionEstimatorImpl.java)
