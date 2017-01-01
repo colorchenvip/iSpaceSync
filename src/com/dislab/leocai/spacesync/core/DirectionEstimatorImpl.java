@@ -44,8 +44,6 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 				linearAccListener.dealWithClientGlobalAcc(clientId, tracked_hori_lacc);
 			rtm_g2bs[clientId] = RotationUtils.getRotationMatrixG2BBy2Vectors(clientSensorDataList.getGravityAccs()[0],
 					initXAxis);
-			System.out.println();
-			MatrixUtils.printMatrix(rtm_g2bs[clientId]);
 			tracked_hori_lacc_multi[clientId] = tracked_hori_lacc;
 		}
 

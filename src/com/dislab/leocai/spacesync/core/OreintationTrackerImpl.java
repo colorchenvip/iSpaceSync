@@ -32,12 +32,10 @@ public class OreintationTrackerImpl implements OreintationTracker {
 			if (isSyncTime){
 				matrixTrackers[i].setInitXAxis(xAxisMulti[i]);
 				double[][] rtm_b2g = MatrixUtils.T(RotationUtils.getRotationMatrixG2BBy2Vectors(sensorData.getGrivity(), xAxisMulti[i]));
-				MatrixUtils.printMatrix(rtm_b2g);
 				trackingCallBacks[i].dealWithRotationMatrix_b2g(rtm_b2g);
 			}
-			
-//			matrixTrackers[i].track_b2g(trackingCallBacks[i], sensorData.getGYR(), sensorData.getGrivity(),
-//					sensorData.getDT());
+			matrixTrackers[i].track_b2g(trackingCallBacks[i], sensorData.getGYR(), sensorData.getGrivity(),
+					sensorData.getDT());
 		}
 		return null;
 	}
