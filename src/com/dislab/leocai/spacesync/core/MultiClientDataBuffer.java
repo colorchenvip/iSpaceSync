@@ -1,4 +1,4 @@
-package com.dislab.leocai.spacesync.connection;
+package com.dislab.leocai.spacesync.core;
 
 import java.util.Arrays;
 

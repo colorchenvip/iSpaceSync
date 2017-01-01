@@ -3,7 +3,6 @@ package com.dislab.leocai.spacesync.core;
  * 
  */
 
-import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
 import com.dislab.leocai.spacesync.core.model.SensorDataSequnce;
 import com.dislab.leocai.spacesync.core.model.TrackingResults;
 

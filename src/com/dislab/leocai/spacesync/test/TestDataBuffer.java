@@ -1,6 +1,6 @@
 package com.dislab.leocai.spacesync.test;
 
-import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
+import com.dislab.leocai.spacesync.core.MultiClientDataBuffer;
 
 
 public class TestDataBuffer {

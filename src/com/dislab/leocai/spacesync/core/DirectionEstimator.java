@@ -1,7 +1,5 @@
 package com.dislab.leocai.spacesync.core;
 
-import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
-
 /**
  * 方向估计
  * 

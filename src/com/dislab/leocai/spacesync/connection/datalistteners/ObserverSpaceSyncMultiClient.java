@@ -4,7 +4,7 @@ package com.dislab.leocai.spacesync.connection.datalistteners;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.dislab.leocai.spacesync.connection.MultiClientDataBuffer;
+import com.dislab.leocai.spacesync.core.MultiClientDataBuffer;
 import com.dislab.leocai.spacesync.core.SpaceSync;
 import com.dislab.leocai.spacesync.utils.SpaceSyncConfig;
 
