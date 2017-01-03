@@ -29,4 +29,5 @@ public interface DataClient {
 	 */
 	void sendSample(String data) throws IOException;
 
+
 }

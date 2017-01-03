@@ -25,9 +25,12 @@ public class DataClientImpl implements DataClient {
 
 	@Override
 	public void disconnect() throws IOException {
-		in.close();
-		out.close();
-		socket.close();
+		if (in != null)
+			in.close();
+		if (out != null)
+			out.close();
+		if (socket != null)
+			socket.close();
 	}
 
 	@Override

@@ -12,8 +12,15 @@ public class TestDataClient {
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		DataClient dataClient = new DataClientImpl();
 		dataClient.connect("127.0.0.1", 10007);
-		dataClient.sendSample("1,2,3,4,5,6");
-		dataClient.disconnect();
+		while(true){
+			;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 
