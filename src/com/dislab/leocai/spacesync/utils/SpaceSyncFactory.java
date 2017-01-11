@@ -17,24 +17,25 @@ public class SpaceSyncFactory {
 
 	/**
 	 * 构造默认的spacesync算法
+	 * 
 	 * @param clientsNum
-	 * 客户段数量
+	 *            客户段数量
 	 * @param trackingCallBacks
-	 * 每个客户端对应的姿态跟踪回调函数
+	 *            每个客户端对应的姿态跟踪回调函数
 	 * @param consistantAccListener
-	 * 一致力数据监听器
+	 *            一致力数据监听器
 	 * @param globalLinearAccListener
-	 * 全局线性加速度监听器
+	 *            全局线性加速度监听器
 	 * @return
 	 */
 	public static SpaceSync getDefaultSpaceSync(int clientsNum, TrackingCallBack[] trackingCallBacks,
-			LinearAccListener consistantAccListener, ConsistantAccListener globalLinearAccListener) {
+			ConsistantAccListener consistantAccListener, LinearAccListener globalLinearAccListener) {
 		ConsistentExtraction consistentExtraction = new ConsistentExtractionImpl();
 		GyrGaccMatrixTracker matrixTracker = new GyrGaccMatrixTracker();
 		DirectionEstimator directionEstimator = new DirectionEstimatorImpl(clientsNum, consistentExtraction,
 				matrixTracker);
-		directionEstimator.addConsistantAccListener(consistantAccListener);
-		directionEstimator.addGlobalLinearAccListener(globalLinearAccListener);
+		directionEstimator.setConsistantAccListener(consistantAccListener);
+		directionEstimator.setGlobalLinearAccListener(globalLinearAccListener);
 		GyrGaccMatrixTracker[] matrixTrackers = new GyrGaccMatrixTracker[clientsNum];
 		for (int i = 0; i < clientsNum; i++) {
 			matrixTrackers[i] = new GyrGaccMatrixTracker();

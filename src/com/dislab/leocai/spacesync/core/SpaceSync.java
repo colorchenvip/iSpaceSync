@@ -45,4 +45,22 @@ public interface SpaceSync {
 
 	void setDirectionListener(DirectionListener directionListener);
 	
+	/**
+	 * 添加数据回调函数
+	 * @param globalLinearAccListener
+	 */
+	void setConsistantAccListener(ConsistantAccListener globalLinearAccListener);
+
+	/**
+	 * 添加数据回调函数
+	 * @param clobalLinearAccListener
+	 */
+	void  setGlobalLinearAccListener(LinearAccListener consistantAccListener);
+	
+	int getClientsNum();
+	
+	void setDataListener(SyncBufferListener syncBufferListener);
+
+
+	
 }

@@ -1,6 +1,5 @@
 package com.dislab.leocai.spacesync.core.model;
 
-
 import java.util.Arrays;
 
 import com.dislab.leocai.spacesync.utils.MatrixUtils;
@@ -10,12 +9,11 @@ import static com.dislab.leocai.spacesync.utils.SpaceSyncConfig.*;
 
 /**
  * 单客户端传感器数据序列
+ * 
  * @author leocai
  *
  */
 public class SensorDataSequnce {
-
-	
 
 	private double[][] data;
 
@@ -66,7 +64,7 @@ public class SensorDataSequnce {
 
 	public double[][] getInitGlobalMatrix_G2B() {
 		double[] gravity_acc = getGravityAccs()[0];
-		double[] mag_acc = getGlobalMagAcc()[0];
+		double[] mag_acc = getMagnet()[0];
 		return RotationUtils.getRotationMatrixG2BBy2Vectors(gravity_acc, mag_acc);
 	}
 
@@ -80,6 +78,10 @@ public class SensorDataSequnce {
 			global_acc[i] = RotationUtils.getGlobalData(lacc[i], MatrixUtils.T(matrix_g2b));
 		}
 		return global_acc;
+	}
+
+	public double[] getFirstMagDirection() {
+		return MatrixUtils.T(getInitGlobalMatrix_G2B())[1];
 	}
 
 }

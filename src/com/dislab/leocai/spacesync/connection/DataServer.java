@@ -50,5 +50,7 @@ public interface DataServer {
 	 * @param onConnectedListener
 	 */
 	void setOnConnectionListener(OnConnectedListener onConnectedListener);
+	
+	int getClientsNum();
 
 }

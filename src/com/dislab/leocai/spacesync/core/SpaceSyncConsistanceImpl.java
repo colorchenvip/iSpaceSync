@@ -13,6 +13,7 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 	private int clientsNum;
 	private long sampleCount;
 	private long preSampleCount = -SpaceSyncConfig.BUFFER_SIZE;
+	private SyncBufferListener syncBufferListener;
 
 	public SpaceSyncConsistanceImpl(int clientsNum, DirectionEstimator directionEstimator,
 			OreintationTracker oreintationTracker) {
@@ -26,6 +27,8 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 		sampleCount++;
 		DirectionEstimateResults directions = null;
 		boolean isSyncTime = isSyncTime(buffer, SpaceSyncConfig.SYNC_THRESHOLD);
+		if (syncBufferListener != null)
+			syncBufferListener.dealWithSyncBuffer(buffer, isSyncTime);
 		if (isSyncTime) {
 			System.out.println("Sync Time!");
 			preSampleCount = sampleCount;
@@ -73,6 +76,28 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 	public TrackingResults oreintationTracking(MultiClientDataBuffer buffer,
 			DirectionEstimateResults directionEstimateResults, boolean isSyncTime) {
 		return oreintationTracker.track(buffer, directionEstimateResults, isSyncTime);
+	}
+
+	@Override
+	public void setConsistantAccListener(ConsistantAccListener consistantAccLisener) {
+		directionEstimator.setConsistantAccListener(consistantAccLisener);
+
+	}
+
+	@Override
+	public void setGlobalLinearAccListener(LinearAccListener laccListener) {
+		directionEstimator.setGlobalLinearAccListener(laccListener);
+	}
+
+	@Override
+	public int getClientsNum() {
+		return clientsNum;
+	}
+
+	@Override
+	public void setDataListener(SyncBufferListener syncBufferListener) {
+		this.syncBufferListener = syncBufferListener;
+
 	}
 
 }

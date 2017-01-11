@@ -32,9 +32,13 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 
 		double[][][] rtm_g2bs = new double[clientsNum][][];
 
+		double[][] magDirections = new double[clientsNum][3];
+		double[][] firstGravitys = new double[clientsNum][3];
 		for (int clientId = 0; clientId < clientsNum; clientId++) {
 			SensorDataSequnce clientSensorDataList = buffer.getClientSensorData(clientId);
-			double[] initXAxis = new double[] { 0, 1, 0 };
+			magDirections[clientId] = clientSensorDataList.getFirstMagDirection();
+			firstGravitys[clientId] = clientSensorDataList.getGravityAccs()[0];
+			double[] initXAxis = new double[] { 1, 0, 0 };
 			adjustInitXAxis(initXAxis, clientSensorDataList.getGravityAccs()[0][0]);
 			double[][] tracked_lacc = track(clientSensorDataList, initXAxis);
 			double[][] tracked_hori_lacc = MatrixUtils.copyAndSetColumn(tracked_lacc, 2, 0);// project
@@ -51,9 +55,16 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 		if (consistantAccListener != null)
 			consistantAccListener.dealWithConsistant(Fc);
 		DirectionEstimateResults syncResult = getEstimateResults(tracked_hori_lacc_multi, Fc, rtm_g2bs);
+		syncResult.setClientsMagDirections(magDirections);
+		syncResult.setFirstGravitys(firstGravitys);
 		return syncResult;
 	}
 	
+	/**
+	 * 根据重力，调整投影x轴
+	 * @param initXAxis
+	 * @param d
+	 */
 	private void adjustInitXAxis(double[] initXAxis, double d) {
 		if(Math.abs(d)>=7){
 //			System.out.println("Y");
@@ -114,14 +125,16 @@ public class DirectionEstimatorImpl implements DirectionEstimator {
 	}
 
 	@Override
-	public void addGlobalLinearAccListener(ConsistantAccListener globalLinearAccListener) {
-		this.consistantAccListener = globalLinearAccListener;
+	public void setConsistantAccListener(ConsistantAccListener consistantAccListener) {
+		this.consistantAccListener = consistantAccListener;
+		
 	}
 
 	@Override
-	public void addConsistantAccListener(LinearAccListener clobalLinearAccListener) {
-		this.linearAccListener = clobalLinearAccListener;
-
+	public void setGlobalLinearAccListener(LinearAccListener linearAccListener) {
+		this.linearAccListener = linearAccListener;
 	}
+
+
 
 }

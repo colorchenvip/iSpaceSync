@@ -94,4 +94,10 @@ public class DataServerSingleClientImpl extends Observable implements DataServer
 		
 	}
 
+	@Override
+	public int getClientsNum() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
