@@ -33,7 +33,10 @@ public class SpaceSyncConsistanceImpl implements SpaceSync {
 			System.out.println("Sync Time!");
 			preSampleCount = sampleCount;
 		}
+		long start = System.nanoTime();
 		directions = directionEstimate(buffer);
+		if(isSyncTime)
+		System.out.println(1.0*(System.nanoTime()-start)/1000000);
 		if (directionListener != null)
 			directionListener.dealWithDirection(directions, isSyncTime);
 		oreintationTracking(buffer, directions, isSyncTime);
