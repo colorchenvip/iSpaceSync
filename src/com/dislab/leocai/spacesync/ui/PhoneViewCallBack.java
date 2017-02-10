@@ -21,4 +21,10 @@ public class PhoneViewCallBack implements TrackingCallBack {
 		phoneDisplayer.setRotationMatrix_b2g(rtm_b2g);
 	}
 
+	@Override
+	public void dealWithMagRotationMatrix_b2g(double[][] rtm_mag_b2g) {
+		phoneDisplayer.setMagRotationMatrix_b2g(rtm_mag_b2g);
+		
+	}
+
 }
